@@ -1,0 +1,53 @@
+/*
+ * Responsive
+ */
+$veryVeryLarge: 1920px;
+$veryLarge: 1600px;
+$large: 1440px;
+$desktop-w: 1280px;
+$tablet-h: 1024px;
+
+$tablet-w: 900px;
+$ipad-w: 768px;
+$mobile-w: 480px;
+$mobile-l: 640px;
+$mobile-s: 374px;
+
+/*
+ * VARS
+ */
+$gutter: 20px;
+$container: 1920px;
+$num_cols: 12;
+
+$biggest: 'only screen and (min-width:#{$veryVeryLarge})';
+$bigDesktop: 'only screen and (min-width:#{$veryLarge})';
+$biggerThanNormal: 'only screen and (min-width:#{$large})';
+$smallerThanNormal: 'only screen and (max-width: 1439px)';
+$desktop: 'only screen and (max-width:#{$desktop-w})';
+$tabletHorizontal: 'only screen and (max-width:#{$tablet-h})';
+$tablet: 'only screen and (max-width:#{$tablet-w})';
+$ipad: 'only screen and (max-width:#{$ipad-w})';
+$ipadAndHeight: 'only screen and (max-width:#{$ipad-w}), only screen and (max-height: 540px)';
+
+$mobile: 'only screen and (max-width:#{$mobile-w})';
+$mobile-large: 'only screen and (max-width:#{$mobile-l})';
+$mobile-small: 'only screen and (max-width:#{$mobile-s})';
+
+/**
+ * Colors
+ */
+
+$main: #0c1637;
+
+/**
+ * Fonts
+ */
+
+/**
+ * Sizes
+ */
+
+/**
+ * Border Radius
+ */

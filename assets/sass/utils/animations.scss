@@ -1,0 +1,147 @@
+/*
+	SplitText 
+	[v-split-text]
+*/
+:root {
+	--split-type: 'lines'; // chars, words, lines
+	--split-initial-y: 105%;
+	--split-duration: 1.1s;
+	--split-easing: #{$Power4EaseOut};
+	--split-stagger-word: .15s; // also used for lines
+	--split-stagger-char: .03s;
+}
+
+.anim--split {
+	opacity: 0;
+	user-select: none;
+
+	* {
+		user-select: none;
+	}
+	
+	&__line {
+		overflow: hidden;
+	}
+
+	&__word,
+	&__char {
+		transform: translate3d(0, var(--split-initial-y), 0);
+	}
+
+	&--in {
+		opacity: 1;
+
+		.anim--split__word,
+		.anim--split__char {
+			transform: translate3d(0, 0%, 0);
+			transition: transform var(--split-duration) var(--split-easing);
+		}
+		.anim--split__word {
+			transition-delay: calc(var(--split-index) * var(--split-stagger-word));
+		}
+		.anim--split__char {
+			transition-delay: calc(var(--split-index) * var(--split-stagger-char));
+		}
+	}
+}
+
+/*
+	Fade In
+	[v-fade-in]
+*/
+:root {
+	--fade-initial-y: 30px;
+	--fade-initial-y-reverse: -30px;
+
+	--fade-duration: 1.1s;
+	--fade-easing: #{$Power4EaseOut};
+}
+
+.anim--fade {
+	opacity: 0;
+	transform: translate3d(0, var(--fade-initial-y), 0);
+
+	&--in {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+			transition: opacity var(--fade-duration) var(--fade-easing), transform var(--fade-duration) var(--fade-easing);
+	}
+}
+
+.anim--fade--reverse {
+	opacity: 0;
+	transform: translate3d(0, var(--fade-initial-y-reverse), 0);
+
+	&--in {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+			transition: opacity var(--fade-duration) var(--fade-easing), transform var(--fade-duration) var(--fade-easing);
+	}
+}
+
+
+/*
+	Fade In Childs
+	[v-fade-in-childs]
+*/
+:root {
+	--fade-childs-initial-y: 30px;
+	--fade-childs-duration: 1.1s;
+	--fade-childs-easing: #{$Power4EaseOut};
+	--fade-childs-stagger: .1s;
+	--fade-childs-stagger-swiperjs: .2s;
+}
+
+.anim--fade-childs {
+
+	> * {
+		opacity: 0;
+		transform: translate3d(0, var(--fade-childs-initial-y), 0);
+	}
+
+	&--in > * {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+		transition: opacity var(--fade-childs-duration) var(--fade-childs-easing), transform var(--fade-childs-duration) var(--fade-childs-easing);
+		transition-delay: calc(var(--fade-childs-index) * var(--fade-childs-stagger));
+	}
+}
+
+.anim--fade-childs-swiperjs {
+	
+	.thumbnail {
+		opacity: 0;
+		transform: translate3d(0, var(--fade-childs-initial-y), 0);
+	}
+	&--in .thumbnail {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+		transition: opacity var(--fade-childs-duration) var(--fade-childs-easing), transform var(--fade-childs-duration) var(--fade-childs-easing);
+		transition-delay: calc(var(--fade-childs-index) * var(--fade-childs-stagger-swiperjs));
+	}
+
+	
+	.mobile-or-tablet &{
+		&--in .thumbnail {
+			.thumbnail__bg1, .thumbnail__bg2{
+				transition: transform 0.4s $Power4EaseInOut 0.1s, opacity 0.4s $Power4EaseInOut 0.1s;
+				transform: translateY(0);
+				opacity: 1;
+			}
+		}
+	}
+}
+
+/*
+	Lazyloading
+	.lazyload
+*/
+.lazyload,
+.lazyloading {
+	opacity: 0 !important;
+}
+
+.lazyloaded {
+	opacity: 1;
+	transition: opacity .8s;
+}
