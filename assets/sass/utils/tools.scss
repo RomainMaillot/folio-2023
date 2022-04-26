@@ -1,106 +1,104 @@
-@use "sass:math";
-
 /**
  * Basic
  * Tools
  */
 
 /* Retina */
-@mixin at2x($image_name, $w: auto, $h: auto, $extention: ".png") {
-  background-image: image_url($image_name + $extention);
-  $x2img: $image_name + "@2x" + $extention;
+@mixin at2x($image_name, $w: auto, $h: auto, $extention: '.png') {
+	background-image: image_url($image_name + $extention);
+	$x2img: $image_name + '@2x' + $extention;
 
-  @media all and (-webkit-min-device-pixel-ratio: 1.5) {
-    background-image: image_url($x2img);
-    background-size: $w $h;
-  }
+	@media all and (-webkit-min-device-pixel-ratio: 1.5) {
+		background-image: image_url($x2img);
+		background-size: $w $h;
+	}
 }
 
 /* Smart Hidden */
 @mixin autoAlpha($value: 0) {
-  @if ($value == 0) {
-    visibility: hidden;
-  } @else {
-    visibility: visible;
-  }
+	@if ($value == 0) {
+		visibility: hidden;
+	} @else {
+		visibility: visible;
+	}
 
-  opacity: $value;
+	opacity: $value;
 }
 
 @mixin absoluteBox {
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
 }
 
 @mixin relativeBox {
-  position: relative;
-  box-sizing: border-box;
-  float: left;
-  width: 100%;
+	position: relative;
+	box-sizing: border-box;
+	float: left;
+	width: 100%;
 }
 
 @mixin smooth {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 @mixin debug($_color: red) {
-  outline: 1px solid $_color;
+	outline: 1px solid $_color;
 }
 
 @mixin absoluteCenter($w, $h) {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: $w * 1px;
-  height: $h * 1px;
-  margin-left: $w * -0.5px;
-  margin-top: $h * -0.5px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: $w * 1px;
+	height: $h * 1px;
+	margin-left: $w * -0.5px;
+	margin-top: $h * -0.5px;
 }
 
 @mixin vertical-align {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 @mixin valign {
-  display: table-cell;
-  vertical-align: middle;
-  height: 100%;
+	display: table-cell;
+	vertical-align: middle;
+	height: 100%;
 }
 
 @mixin smoothResponsive($property, $minValue, $maxValue, $minMQ, $maxMQ) {
-  #{$property}: calc(
-    #{$minValue}px + (#{$maxValue} - #{$minValue}) * (100vw - #{$minMQ}px) /
-      (#{$maxMQ} - #{$minMQ})
-  );
+	#{$property}: calc(
+		#{$minValue}px + (#{$maxValue} - #{$minValue}) * (100vw - #{$minMQ}px) /
+			(#{$maxMQ} - #{$minMQ})
+	);
 }
 
-@mixin flex($align-horiz, $align-vert, $direction: "", $wrap: "") {
-  display: flex;
-  justify-content: $align-horiz;
-  align-items: $align-vert;
+@mixin flex($align-horiz, $align-vert, $direction: '', $wrap: '') {
+	display: flex;
+	justify-content: $align-horiz;
+	align-items: $align-vert;
 
-  @if ($direction != "") {
-    flex-direction: $direction;
-  }
+	@if ($direction != '') {
+		flex-direction: $direction;
+	}
 
-  @if ($wrap != "") {
-    flex-wrap: $wrap;
-  }
+	@if ($wrap != '') {
+		flex-wrap: $wrap;
+	}
 }
 
 @mixin col($property, $nbCol, $maxCol) {
-  #{$property}: calc(100% * math.div($nbCol, $maxCol));
+	#{$property}: calc(100% * math.div($nbCol, $maxCol));
 }
 
 @mixin colIE($property, $nbCol, $maxCol) {
-  $width: 100% * math.div($nbCol, $maxCol);
-  #{$property}: round($width);
+	$width: 100% * math.div($nbCol, $maxCol);
+	#{$property}: round($width);
 }

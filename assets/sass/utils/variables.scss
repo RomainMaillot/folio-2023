@@ -1,3 +1,4 @@
+@use 'sass:math';
 /*
  * Responsive
  */
@@ -14,7 +15,7 @@ $mobile-l: 640px;
 $mobile-s: 374px;
 
 /*
- * VARS
+ * Vars
  */
 $gutter: 20px;
 $container: 1920px;
@@ -33,21 +34,3 @@ $ipadAndHeight: 'only screen and (max-width:#{$ipad-w}), only screen and (max-he
 $mobile: 'only screen and (max-width:#{$mobile-w})';
 $mobile-large: 'only screen and (max-width:#{$mobile-l})';
 $mobile-small: 'only screen and (max-width:#{$mobile-s})';
-
-/**
- * Colors
- */
-
-$main: #0c1637;
-
-/**
- * Fonts
- */
-
-/**
- * Sizes
- */
-
-/**
- * Border Radius
- */

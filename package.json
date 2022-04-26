@@ -31,9 +31,9 @@
 		"@nuxtjs/router": "^1.7.0",
 		"@nuxtjs/style-resources": "^1.2.1",
 		"eslint-config-prettier": "^8.3.0",
+		"gsap": "file:gsap-bonus.tgz",
 		"prettier": "^2.5.1",
 		"sass": "^1.50.1",
-		"sass-loader": "^10.1.1",
-		"gsap": "file:gsap-bonus.tgz"
+		"sass-loader": "^10.1.1"
 	}
 }
