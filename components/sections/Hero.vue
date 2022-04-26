@@ -1,7 +1,6 @@
 <template>
 	<div class="hero">
-		<h1></h1>
-		{{ title }}
+		<h1>{{ title }}</h1>
 	</div>
 </template>
 
@@ -15,9 +14,13 @@ export default {
 
 <style lang="scss" scoped>
 .hero {
-	height: 110vh;
+	height: 100vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	h1 {
+		font-size: 80px;
+	}
 }
 </style>

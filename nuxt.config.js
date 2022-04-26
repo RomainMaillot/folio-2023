@@ -27,14 +27,6 @@ export default {
 		{ src: '~/plugins/global.js' },
 	],
 
-	// Auto import components: https://go.nuxtjs.dev/config-components
-	components: [
-		{
-			path: '~/components', // will get any components nested in let's say /components/test too
-			pathPrefix: false,
-		},
-	],
-
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
 	buildModules: [
 		'nuxt-lazysizes',
@@ -66,7 +58,7 @@ export default {
 		extend(config, ctx) {
 			config.node = {
 				fs: 'empty',
-			}
+			};
 		},
 		transpile: ['gsap'],
 		loaders: {
@@ -84,4 +76,4 @@ export default {
 			},
 		},
 	},
-}
+};

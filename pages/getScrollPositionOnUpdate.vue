@@ -7,11 +7,15 @@
 </template>
 
 <script>
+import SmoothScroll from '@/components/core/SmoothScroll.vue';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { gsap } from 'gsap';
 import { SmootherObservable } from '/helpers/SmootherObservable';
 export default {
 	name: 'GetScrollPositionOnUpdate',
+	components: {
+		SmoothScroll,
+	},
 	watch: {
 		'$store.state.app.scrollTopPosition': function () {
 			console.log(this.$store.state.app.scrollTopPosition);

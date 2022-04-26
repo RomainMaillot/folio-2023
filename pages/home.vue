@@ -1,15 +1,23 @@
 <template>
 	<SmoothScroll>
 		<div class="homepage">
-			<Hero title="Home" />
-			<ScrollTriggerExample />
+			<Hero title="AkuStack" />
+			<!-- <ScrollTriggerExample /> -->
 		</div>
 	</SmoothScroll>
 </template>
 
 <script>
+import SmoothScroll from '@/components/core/SmoothScroll.vue';
+import ScrollTriggerExample from '@/components/sections/ScrollTriggerExample.vue';
+import Hero from '@/components/sections/Hero.vue';
 export default {
 	name: 'Home',
+	components: {
+		SmoothScroll,
+		Hero,
+		ScrollTriggerExample,
+	},
 };
 </script>
 

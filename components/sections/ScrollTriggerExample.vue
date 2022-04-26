@@ -14,11 +14,11 @@
 			v-translate-in="{
 				target: 'childs',
 				trigger: 'self',
-				duration: 2,
+				duration: 0.6,
 				axis: 'y',
-				distanceFrom: 200,
+				distanceFrom: 100,
 				distanceTo: 0,
-				stagger: 0.4,
+				stagger: 0.1,
 				animateOpacity: true,
 			}">
 			<p class="scroll-trigger__para">

@@ -39,7 +39,7 @@ Vue.directive('translate-in', {
 			target: 'self',
 			trigger: 'self',
 			axis: 'y',
-			duration: 0.6,
+			duration: 3,
 			distanceFrom: 100,
 			distanceTo: 0,
 			stagger: 0.2,
@@ -53,15 +53,16 @@ Vue.directive('translate-in', {
 		const elements = getElements(el, options);
 
 		elements.forEach((loopElement) => {
+			const tweenElement = getTweenElement(loopElement, options);
+			const from = getFrom(options);
+			const to = getTo(options, tweenElement);
+
 			animationTriggers = ScrollTrigger.create({
 				trigger: options.trigger == 'childs' ? loopElement : el,
 				once: true,
 				start: options.startTrigger,
 				markers: options.markers,
-				onEnter: (self) => {
-					const from = getFrom(options);
-					const to = getTo(options);
-					const tweenElement = getTweenElement(loopElement, options);
+				onEnter: () => {
 					animationTweens = gsap.fromTo(tweenElement, from, to);
 					binding.animationTweens.push(animationTweens);
 				},
@@ -98,12 +99,15 @@ Vue.directive('translate-in', {
 			return from;
 		}
 
-		function getTo(options) {
+		function getTo(options, tweenElement) {
 			const to = {};
 			to[options.axis] = options.distanceTo;
 			to.duration = options.duration;
 			to.delay = options.delay;
 			to.ease = options.ease;
+			to.onCompleteParams = [tweenElement];
+			to.force3D = true;
+
 			if (options.animateOpacity) to.opacity = 1;
 			if (options.target == 'childs' && options.trigger == 'self')
 				to.stagger = options.stagger;

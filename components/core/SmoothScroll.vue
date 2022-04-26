@@ -16,8 +16,9 @@ export default {
 	methods: {
 		setSmoothScroll() {
 			const smoothOptions = {
-				speed: 2,
+				speed: 2.4,
 				effects: true,
+				ease: 'power4',
 			};
 
 			if (this.exposeScrollPosition) {
