@@ -2,7 +2,9 @@
 	<nav class="menu" ref="menu">
 		<NuxtLink to="/">Home</NuxtLink>
 		<NuxtLink to="/animation-test">Animation Test</NuxtLink>
-		<NuxtLink to="/getScrollPositionOnUpdate">Get scroll position</NuxtLink>
+		<NuxtLink to="/get-scroll-position-update">
+			Get scroll position
+		</NuxtLink>
 		<button class="btn-close" @click="onToggleMenu">
 			<SvgIcon name="close" />
 		</button>

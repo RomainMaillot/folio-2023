@@ -1,7 +1,9 @@
 <template>
 	<SmoothScroll exposeScrollPosition="true">
 		<div class="getScrollPositionOnUpdate">
-			<NuxtLink to="about">About</NuxtLink>
+			Current Scroll Position
+			<br />
+			{{ $store.state.app.scrollTopPosition }}
 		</div>
 	</SmoothScroll>
 </template>
@@ -16,11 +18,6 @@ export default {
 	components: {
 		SmoothScroll,
 	},
-	watch: {
-		'$store.state.app.scrollTopPosition': function () {
-			console.log(this.$store.state.app.scrollTopPosition);
-		},
-	},
 };
 </script>
 
@@ -28,6 +25,10 @@ export default {
 .getScrollPositionOnUpdate {
 	height: 150vh;
 	width: 100%;
-	background-color: lightcoral;
+	background-color: #000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
 }
 </style>

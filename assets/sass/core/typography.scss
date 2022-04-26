@@ -4,9 +4,76 @@ body {
 	font-family: 'Graphik-Regular';
 }
 
-p {
+.uber-style {
+	// Font-size 150px in figma
+	// vw = 150 / 1440 * 100
+	font-size: clamp(50px, 10.4vw, calc(150px * 1.5));
+	line-height: 1.35em;
+	font-family: 'Graphik-Medium';
+}
+
+.h1-style {
+	// Font-size 100px in figma
+	// vw = 100 / 1440 * 100
+	font-size: clamp(42px, 7vw, calc(100px * 1.5));
+	line-height: 1.2em;
+	font-family: 'Graphik-Semibold';
+}
+
+.h2-style {
+	// Font-size 80px in figma
+	// vw = 80 / 1440 * 100
+	font-size: clamp(36px, 5.5vw, calc(80px * 1.5));
+	line-height: 1.35em;
+	font-family: 'Graphik-Semibold';
+}
+
+.h3-style {
+	// Font-size 60px in figma
+	// vw = 60 / 1440 * 100
+	font-size: clamp(28px, 4.2vw, calc(60px * 1.5));
+	line-height: 1.15em;
+	font-family: 'Graphik-Medium';
+}
+
+.h4-style {
+	// Font-size 40px in figma
+	// vw = 40 / 1440 * 100
+	font-size: clamp(24px, 2.8vw, calc(40px * 1.5));
+	line-height: 1.15em;
+	font-family: 'Graphik-Medium';
+}
+
+.h5-style {
+	// Font-size 40px in figma
+	// vw = 30 / 1440 * 100
+	font-size: clamp(20px, 2.1vw, calc(30px * 1.5));
+	line-height: 1.15em;
+	font-family: 'Graphik-Regular';
+}
+
+.h6-style {
+	// Font-size 24px in figma
+	// vw = 24 / 1440 * 100
+	font-size: clamp(18px, 1.7vw, calc(24px * 1.5));
+	line-height: 1.15em;
+	font-family: 'Graphik-Regular';
+}
+
+.body-l-style {
 	font-size: 16px;
-	line-height: 1.87;
-	margin-bottom: 20px;
-	letter-spacing: -0.02em;
+	line-height: 1.5em;
+	font-family: 'Graphik-Regular';
+}
+
+.body-m-style {
+	font-size: 14px;
+	line-height: 1.5em;
+	font-family: 'Graphik-Regular';
+}
+
+.body-s-style {
+	font-size: 12px;
+	line-height: 1.5em;
+	font-family: 'Graphik-Regular';
 }
