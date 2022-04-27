@@ -1,10 +1,14 @@
+$regular: 'Graphik-Regular';
+$semiBold: 'Graphik-SemiBold';
+$medium: 'Graphik-Medium';
+
 /**
  * Typography
  */
 html,
 body {
 	color: #fff;
-	font-family: 'Graphik-Regular';
+	font-family: $regular;
 	line-height: 1.25em;
 }
 
@@ -17,7 +21,7 @@ p {
 	// vw = 150 / 1440 * 100
 	font-size: clamp(50px, 10.4vw, calc(150px * 1.5));
 	line-height: 1.35em;
-	font-family: 'Graphik-Medium';
+	font-family: $medium;
 }
 
 .h1-style {
@@ -25,7 +29,7 @@ p {
 	// vw = 100 / 1440 * 100
 	font-size: clamp(42px, 7vw, calc(100px * 1.5));
 	line-height: 1.2em;
-	font-family: 'Graphik-Semibold';
+	font-family: $semiBold;
 }
 
 .h2-style {
@@ -33,7 +37,7 @@ p {
 	// vw = 80 / 1440 * 100
 	font-size: clamp(36px, 5.5vw, calc(80px * 1.5));
 	line-height: 1.35em;
-	font-family: 'Graphik-Semibold';
+	font-family: $semiBold;
 }
 
 .h3-style {
@@ -41,7 +45,7 @@ p {
 	// vw = 60 / 1440 * 100
 	font-size: clamp(28px, 4.2vw, calc(60px * 1.5));
 	line-height: 1.15em;
-	font-family: 'Graphik-Medium';
+	font-family: $medium;
 }
 
 .h4-style {
@@ -49,7 +53,7 @@ p {
 	// vw = 40 / 1440 * 100
 	font-size: clamp(24px, 2.8vw, calc(40px * 1.5));
 	line-height: 1.15em;
-	font-family: 'Graphik-Medium';
+	font-family: $medium;
 }
 
 .h5-style {
@@ -57,7 +61,7 @@ p {
 	// vw = 30 / 1440 * 100
 	font-size: clamp(20px, 2.1vw, calc(30px * 1.5));
 	line-height: 1.15em;
-	font-family: 'Graphik-Regular';
+	font-family: $regular;
 }
 
 .h6-style {
@@ -65,25 +69,25 @@ p {
 	// vw = 24 / 1440 * 100
 	font-size: clamp(18px, 1.7vw, calc(24px * 1.5));
 	line-height: 1.15em;
-	font-family: 'Graphik-Regular';
+	font-family: $regular;
 }
 
 .body-l-style {
 	font-size: 16px;
 	line-height: 1.5em;
-	font-family: 'Graphik-Regular';
+	font-family: $regular;
 }
 
 .body-m-style {
 	font-size: 14px;
 	line-height: 1.5em;
-	font-family: 'Graphik-Regular';
+	font-family: $regular;
 }
 
 .body-s-style {
 	font-size: 12px;
 	line-height: 1.5em;
-	font-family: 'Graphik-Regular';
+	font-family: $regular;
 }
 
 /**
@@ -100,6 +104,10 @@ $xxl: 272px;
 /**
  * Colors
  */
+$color-main: #4434c2;
+$color-secondary: #ec34c2;
+$color-text-main: #000;
+$color-text-secondary: #fff;
 
 /**
  * Border Radius
