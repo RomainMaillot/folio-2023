@@ -10,6 +10,14 @@
 					suscipit dicta dolor deleniti! Esse ad voluptatum quo odit
 					quisquam officia quae veritatis nobis ipsam commodi.
 				</p>
+				<!-- GSAP : class toggle -->
+				<p ref="animationCss" class="animate">
+					Animation : css class animation
+					<br />
+					Quia quae eligendi optio error fugiat, suscipit dicta dolor
+					deleniti! Esse ad voluptatum quo odit quisquam officia quae
+					veritatis nobis ipsam commodi.
+				</p>
 				<!-- GSAP :  -->
 				<p ref="animationGsapForce3D">
 					Animation : Force3D
@@ -34,14 +42,7 @@
 					deleniti! Esse ad voluptatum quo odit quisquam officia quae
 					veritatis nobis ipsam commodi.
 				</p>
-				<!-- GSAP : class toggle -->
-				<p ref="animationCss" class="animate">
-					Animation : css class animation
-					<br />
-					Quia quae eligendi optio error fugiat, suscipit dicta dolor
-					deleniti! Esse ad voluptatum quo odit quisquam officia quae
-					veritatis nobis ipsam commodi.
-				</p>
+
 				<!-- GSAP :  -->
 				<p ref="animationGsapNoAnimation">
 					No Animation
