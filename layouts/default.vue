@@ -7,12 +7,11 @@
 </template>
 
 <script>
-import Header from '@/components/core/Header.vue';
-import Loader from '@/components/core/Loader.vue';
+import detectBrowserAndDevice from '@/helpers/detectBrowserAndDevice';
 export default {
-	components: {
-		Header,
-		Loader,
+	mounted() {
+		// Add classes to body
+		detectBrowserAndDevice(this);
 	},
 };
 </script>
