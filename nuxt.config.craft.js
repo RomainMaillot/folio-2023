@@ -54,7 +54,12 @@ export default {
 		],
 		hoistUseStatements: true,
 	},
-
+	apollo: {
+		includeNodeModules: true,
+		clientConfigs: {
+			default: '@/apollo/client-configs/default.js',
+		},
+	},
 	lazySizes: {
 		extendAssetUrls: {
 			img: ['src', 'srcset', 'data-src', 'data-srcset'],
@@ -65,6 +70,7 @@ export default {
 		port: process.env.PORT,
 	},
 	// Build Configuration: https://go.nuxtjs.dev/config-build
+	buildDir: '.nuxt',
 	build: {
 		extend(config, ctx) {
 			config.node = {

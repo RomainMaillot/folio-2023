@@ -64,7 +64,15 @@ export default {
 	server: {
 		port: process.env.PORT,
 	},
+	apollo: {
+		includeNodeModules: true,
+		clientConfigs: {
+			default: '@/apollo/client-configs/default.js',
+		},
+	},
+
 	// Build Configuration: https://go.nuxtjs.dev/config-build
+	buildDir: '.nuxt',
 	build: {
 		extend(config, ctx) {
 			config.node = {
@@ -86,6 +94,49 @@ export default {
 				},
 			},
 		},
+	},
+	redirect: async () => {
+		if (process.env.NODE_ENV !== 'production') {
+			return [];
+		}
+		let cmsRedirects = [];
+
+		const client = new ApolloClient({
+			link: createHttpLink({ uri: process.env.HTTPENDPOINT, fetch }),
+			cache: new InMemoryCache(),
+		});
+
+		const response = await client.query({
+			query: gql`
+				{
+					redirection {
+						redirects {
+							origin
+							target
+							code
+						}
+					}
+				}
+			`,
+		});
+
+		if (
+			response.data.redirection &&
+			response.data.redirection.redirects !== null
+		) {
+			cmsRedirects = [...response.data.redirection.redirects].map(
+				(item) => {
+					return {
+						from: item.origin,
+						to: item.target,
+						code: item.code,
+					};
+				}
+			);
+		} else {
+			console.log('Connection failed');
+		}
+		return [...Redirections, ...cmsRedirects];
 	},
 	pageTransition: {
 		leave(el, done) {

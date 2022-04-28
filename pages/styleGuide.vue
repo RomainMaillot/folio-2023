@@ -49,26 +49,23 @@
 </template>
 
 <script>
-import SmoothScroll from '@/components/core/SmoothScroll.vue';
-import Hero from '@/components/sections/Hero.vue';
-import SvgIcon from '@/components/shared/SvgIcon/SvgIcon.vue';
 import svgList from '@/components/shared/SvgIcon/svgList';
 export default {
 	name: 'Home',
-	components: {
-		SmoothScroll,
-		Hero,
-		SvgIcon,
-	},
 	data() {
 		return {
 			svgList: svgList,
 		};
 	},
+	mounted() {
+		this.$nextTick(() => {
+			this.$nuxt.$emit('loader-hide');
+		});
+	},
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .styleguide {
 	width: 100%;
 	background-color: #fff;

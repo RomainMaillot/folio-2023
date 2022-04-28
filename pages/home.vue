@@ -7,13 +7,11 @@
 </template>
 
 <script>
-import SmoothScroll from '@/components/core/SmoothScroll.vue';
-import Hero from '@/components/sections/Hero.vue';
 export default {
-	name: 'Home',
-	components: {
-		SmoothScroll,
-		Hero,
+	mounted() {
+		this.$nextTick(() => {
+			this.$nuxt.$emit('loader-hide');
+		});
 	},
 };
 </script>

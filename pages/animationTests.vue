@@ -74,15 +74,8 @@
 </template>
 
 <script>
-import SmoothScroll from '@/components/core/SmoothScroll.vue';
-import Hero from '@/components/sections/Hero.vue';
 import { gsap } from 'gsap';
 export default {
-	name: 'Home',
-	components: {
-		SmoothScroll,
-		Hero,
-	},
 	methods: {
 		toggleAnimationsGsap() {
 			const duration = 1.5;
@@ -120,6 +113,11 @@ export default {
 				this.$refs.animationCss.classList.add('animate-show');
 			}, 1);
 		},
+	},
+	mounted() {
+		this.$nextTick(() => {
+			this.$nuxt.$emit('loader-hide');
+		});
 	},
 };
 </script>

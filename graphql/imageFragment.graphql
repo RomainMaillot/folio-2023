@@ -1,0 +1,13 @@
+fragment Image on uploads_Asset {
+  url
+  width
+  height
+  generic: url @transform(width: 1920, height: 9999, immediately: true, mode: "fit", quality: 99)
+  genericDesktop: url @transform(width: 1440, height: 9999, immediately: true, mode: "fit", quality: 99)
+  genericTablet: url @transform(width: 1024, height: 9999, immediately: true, mode: "fit", quality: 99)
+  genericMobile: url @transform(width: 750, height: 9999, immediately: true, mode: "fit", quality: 99)
+  genericWebp: url @transform(width: 1920, height: 9999, immediately: true, mode: "fit", format: "webp", quality: 99)
+  genericDesktopWebp: url @transform(width: 1440, height: 9999, immediately: true, mode: "fit", format: "webp", quality: 99)
+  genericTabletWebp: url @transform(width: 1024, height: 9999, immediately: true, mode: "fit", format: "webp", quality: 99)
+  genericMobileWebp: url @transform(width: 750, height: 9999, immediately: true, mode: "fit", format: "webp", quality: 99)
+}

@@ -12,7 +12,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
 import { SmootherObservable } from '/helpers/SmootherObservable';
 export default {
-	props: ['exposeScrollPosition'],
 	methods: {
 		setSmoothScroll() {
 			const smoothOptions = {
@@ -21,27 +20,22 @@ export default {
 				ease: 'power4',
 			};
 
-			if (this.exposeScrollPosition) {
-				smoothOptions.onUpdate = (smoother) => {
-					this.$store.commit(
-						'app/setScrollTopPosition',
-						smoother.scrollTop()
-					);
-				};
-			}
+			smoothOptions.onUpdate = (smoother) => {
+				this.$store.commit('app/setScrollTopPosition', smoother.scrollTop());
+			};
+
 			SmootherObservable.smoother = ScrollSmoother.create(smoothOptions);
 		},
 	},
-	created() {},
 	mounted() {
+		if (process.client) {
+			window.scrollTo(0, 0);
+		}
 		gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 		this.setSmoothScroll();
 		ScrollTrigger.refresh();
 	},
 	destroyed() {
-		if (process.client) {
-			window.scrollTo(0, 0);
-		}
 		SmootherObservable.smoother.kill();
 	},
 };

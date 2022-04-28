@@ -2,10 +2,8 @@
 	<div class="scroll-trigger__wrapper">
 		<div class="scroll-trigger__translate-in">
 			<p class="scroll-trigger__para" v-translate-in>
-				Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-				Quaerat, ipsam deserunt! Optio velit at distinctio voluptatem,
-				animi, consectetur sed repellendus esse neque dolore obcaecati
-				totam quos rem, cumque voluptate iste.
+				Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat, ipsam deserunt! Optio velit at distinctio voluptatem,
+				animi, consectetur sed repellendus esse neque dolore obcaecati totam quos rem, cumque voluptate iste.
 			</p>
 		</div>
 
@@ -22,22 +20,16 @@
 				animateOpacity: true,
 			}">
 			<p class="scroll-trigger__para">
-				Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-				Quaerat, ipsam deserunt! Optio velit at distinctio voluptatem,
-				animi, consectetur sed repellendus esse neque dolore obcaecati
-				totam quos rem, cumque voluptate iste.
+				Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat, ipsam deserunt! Optio velit at distinctio voluptatem,
+				animi, consectetur sed repellendus esse neque dolore obcaecati totam quos rem, cumque voluptate iste.
 			</p>
 			<p class="scroll-trigger__para">
-				Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-				Quaerat, ipsam deserunt! Optio velit at distinctio voluptatem,
-				animi, consectetur sed repellendus esse neque dolore obcaecati
-				totam quos rem, cumque voluptate iste.
+				Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat, ipsam deserunt! Optio velit at distinctio voluptatem,
+				animi, consectetur sed repellendus esse neque dolore obcaecati totam quos rem, cumque voluptate iste.
 			</p>
 			<p class="scroll-trigger__para">
-				Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-				Quaerat, ipsam deserunt! Optio velit at distinctio voluptatem,
-				animi, consectetur sed repellendus esse neque dolore obcaecati
-				totam quos rem, cumque voluptate iste.
+				Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat, ipsam deserunt! Optio velit at distinctio voluptatem,
+				animi, consectetur sed repellendus esse neque dolore obcaecati totam quos rem, cumque voluptate iste.
 			</p>
 		</div>
 	</div>
