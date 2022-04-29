@@ -34,6 +34,11 @@ export default {
 		gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 		this.setSmoothScroll();
 		ScrollTrigger.refresh();
+
+		// update scroll when lazyloaded image is loaded
+		document.addEventListener('lazyloaded', function () {
+			ScrollTrigger.refresh();
+		});
 	},
 	destroyed() {
 		SmootherObservable.smoother.kill();
