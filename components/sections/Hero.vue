@@ -15,12 +15,10 @@ export default {
 <style lang="scss" scoped>
 .hero {
 	height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	@include flex(center, center);
 
 	h1 {
-		font-size: 80px;
+		@extend .h1-style;
 	}
 }
 </style>

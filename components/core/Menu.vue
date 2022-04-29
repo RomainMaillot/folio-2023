@@ -10,13 +10,9 @@
 
 <script>
 import { gsap } from 'gsap';
-import SvgIcon from '@/components/shared/SvgIcon/SvgIcon.vue';
 export default {
 	props: {
 		isVisible: Boolean,
-	},
-	components: {
-		SvgIcon,
 	},
 	watch: {
 		isVisible(newVal, oldVal) {
@@ -24,13 +20,13 @@ export default {
 		},
 		$route(to, from) {
 			if (to != from) {
-				this.$emit('onToggleMenu');
+				this.$emit('onCloseMenu');
 			}
 		},
 	},
 	methods: {
-		onToggleMenu() {
-			this.$emit('onToggleMenu');
+		onCloseMenu() {
+			this.$emit('onCloseMenu');
 		},
 	},
 };

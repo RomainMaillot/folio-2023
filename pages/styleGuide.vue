@@ -63,8 +63,12 @@ export default {
 .styleguide {
 	width: 100%;
 	background-color: #fff;
-	padding: 0 100px 100px 100px;
+	padding: 0 $m $m $m;
 	color: #000;
+
+	@media #{$mobile-large} {
+		padding: 0 $xxs $xxs $xxs;
+	}
 
 	.image {
 		width: 100%;

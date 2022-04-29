@@ -19,8 +19,8 @@ export default {
 	},
 	mounted() {
 		// Events
-		this.$nuxt.$on('loader-hide', this.loaderEnter);
-		this.$nuxt.$on('loader-show', this.loaderLeave);
+		this.$nuxt.$on('loader-hide', this.loaderHide);
+		this.$nuxt.$on('loader-show', this.loaderShow);
 	},
 	computed: {
 		cssVars() {
@@ -32,16 +32,16 @@ export default {
 		},
 	},
 	methods: {
-		loaderEnter() {
+		loaderHide() {
 			document.body.classList.add('loader-out');
-			gsap.delayedCall(this.outDuration + this.outDelay, this.loaderEnterComplete);
+			gsap.delayedCall(this.outDuration + this.outDelay, this.loaderHideComplete);
 		},
-		loaderEnterComplete() {},
-		loaderLeave(done) {
+		loaderHideComplete() {},
+		loaderShow(done) {
 			document.body.classList.remove('loader-out');
-			gsap.delayedCall(this.inDuration, this.loaderLeaveComplete, [done]);
+			gsap.delayedCall(this.inDuration, this.loaderShowComplete, [done]);
 		},
-		loaderLeaveComplete(done) {
+		loaderShowComplete(done) {
 			done();
 		},
 	},

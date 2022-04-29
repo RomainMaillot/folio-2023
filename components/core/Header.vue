@@ -2,12 +2,14 @@
 	<header class="header" :class="{ 'header--mini': isHeaderMini }">
 		<div class="header__background"></div>
 		<div class="header__container">
-			<SvgIcon name="logo" className="header__logo" />
+			<NuxtLink to="/">
+				<SvgIcon name="logo" className="header__logo" />
+			</NuxtLink>
 			<button class="header__btn" @click="onToggleMenu">
 				<SvgIcon name="menu" className="header__svg-menu" />
 			</button>
 		</div>
-		<Menu :isVisible="isMenuOpened" @onToggleMenu="onToggleMenu" />
+		<Menu :isVisible="isMenuOpened" @onCloseMenu="onCloseMenu" />
 	</header>
 </template>
 
@@ -36,6 +38,9 @@ export default {
 		onToggleMenu() {
 			this.isMenuOpened = !this.isMenuOpened;
 		},
+		onCloseMenu() {
+			this.isMenuOpened = false;
+		},
 	},
 };
 </script>
@@ -53,14 +58,13 @@ export default {
 	width: 100%;
 
 	&__container {
+		@include flex(space-between, center);
+		height: var(--height);
 		position: relative;
 		padding: 0px 40px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		height: var(--height);
 		z-index: 3;
 		transition: transform 0.4s var(--ease);
+
 		.header--mini & {
 			transform: translateY(var(--translate));
 		}
@@ -72,8 +76,8 @@ export default {
 		background-color: #000;
 		width: 100%;
 		height: var(--height);
-
 		transition: transform 0.4s var(--ease);
+
 		.header--mini & {
 			transform: translateY(calc(var(--translate) * 2));
 		}
@@ -82,7 +86,7 @@ export default {
 	&__svg-menu {
 		width: 32px;
 		height: 32px;
-		fill: white;
+		fill: #fff;
 	}
 
 	&__logo {
@@ -90,6 +94,7 @@ export default {
 		height: 48px;
 		transition: transform 0.4s var(--ease);
 		transform: scale(1);
+		fill: #fff;
 
 		.header--mini & {
 			transform: scale(0.5);

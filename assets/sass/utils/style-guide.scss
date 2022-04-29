@@ -20,7 +20,7 @@ p {
 .uber-style {
 	// Font-size 150px in figma
 	// vw = 150 / 1440 * 100
-	font-size: clamp(50px, 10.4vw, calc(150px * 1.5));
+	font-size: clamp(60px, 10.4vw, calc(150px * 1.5));
 	line-height: 1.35em;
 	font-family: $medium;
 }
