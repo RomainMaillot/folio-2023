@@ -1,3 +1,5 @@
+<!-- Documentation : https://app.clickup.com/10601487/v/dc/a3h0f-100767/a3h0f-19282 -->
+
 <template>
 	<a class="link__external" v-if="link && isExternalLink" :href="link" :target="data.target ? '_blank' : ''" rel="noopener">
 		<slot></slot>

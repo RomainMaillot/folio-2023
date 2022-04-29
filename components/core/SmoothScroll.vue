@@ -14,6 +14,7 @@ import { SmootherObservable } from '/helpers/SmootherObservable';
 export default {
 	methods: {
 		setSmoothScroll() {
+			gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 			const smoothOptions = {
 				smooth: 0.6,
 				effects: true,
@@ -31,14 +32,7 @@ export default {
 		if (process.client) {
 			window.scrollTo(0, 0);
 		}
-		gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 		this.setSmoothScroll();
-		ScrollTrigger.refresh();
-
-		// update scroll when lazyloaded image is loaded
-		document.addEventListener('lazyloaded', function () {
-			ScrollTrigger.refresh();
-		});
 	},
 	destroyed() {
 		SmootherObservable.smoother.kill();

@@ -31,7 +31,6 @@
 					<SvgIcon v-for="svg in svgList" :key="svg" :name="svg" />
 				</div>
 			</div>
-			<img class="lazyload" data-src="/image.jpg" alt="" />
 			<div class="section section--colors">
 				<h2 class="section__title">Colors</h2>
 				<div class="color-main">Color Main ( $color-main )</div>
@@ -45,7 +44,6 @@
 
 <script>
 import svgList from '@/components/shared/SvgIcon/svgList';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default {
 	data() {
@@ -67,6 +65,11 @@ export default {
 	background-color: #fff;
 	padding: 0 100px 100px 100px;
 	color: #000;
+
+	.image {
+		width: 100%;
+		height: auto;
+	}
 
 	.section {
 		margin-bottom: $m;

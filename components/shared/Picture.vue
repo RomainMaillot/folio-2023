@@ -1,3 +1,5 @@
+<!-- Documentation : https://app.clickup.com/10601487/v/dc/a3h0f-100767/a3h0f-18007 -->
+
 <template>
 	<picture v-if="third">
 		<source type="image/webp" :data-srcset="data.genericMobileWebp" />
