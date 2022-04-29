@@ -34,15 +34,9 @@
 			<div class="section section--colors">
 				<h2 class="section__title">Colors</h2>
 				<div class="color-main">Color Main ( $color-main )</div>
-				<div class="color-secondary">
-					Color Secondary ( $color-secondary )
-				</div>
-				<div class="color-text-main">
-					Color Text Main ( $color-text-main )
-				</div>
-				<div class="color-text-secondary">
-					Color Text Secondary ( $color-text-secondary )
-				</div>
+				<div class="color-secondary">Color Secondary ( $color-secondary )</div>
+				<div class="color-text-main">Color Text Main ( $color-text-main )</div>
+				<div class="color-text-secondary">Color Text Secondary ( $color-text-secondary )</div>
 			</div>
 		</div>
 	</SmoothScroll>
@@ -51,7 +45,6 @@
 <script>
 import svgList from '@/components/shared/SvgIcon/svgList';
 export default {
-	name: 'Home',
 	data() {
 		return {
 			svgList: svgList,
