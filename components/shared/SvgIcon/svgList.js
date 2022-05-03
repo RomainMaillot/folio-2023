@@ -1,3 +1,3 @@
-const svgList = ['logo', 'menu', 'close'];
+const svgList = ['logo', 'burger', 'close'];
 
 export default svgList;

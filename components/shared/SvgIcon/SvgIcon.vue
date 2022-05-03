@@ -5,7 +5,7 @@
 <script>
 const icons = {
 	logo: () => import('./svgs/Logo.vue'),
-	menu: () => import('./svgs/Menu.vue'),
+	burger: () => import('./svgs/Burger.vue'),
 	close: () => import('./svgs/Close.vue'),
 };
 

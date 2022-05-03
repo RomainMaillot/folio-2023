@@ -6,7 +6,7 @@
 				<SvgIcon name="logo" className="header__logo" />
 			</NuxtLink>
 			<button class="header__btn" @click="onToggleMenu">
-				<SvgIcon name="menu" className="header__svg-menu" />
+				<SvgIcon name="burger" className="header__svg-menu" />
 			</button>
 		</div>
 		<Menu :isVisible="isMenuOpened" @onCloseMenu="onCloseMenu" />
