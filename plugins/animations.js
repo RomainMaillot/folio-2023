@@ -2,6 +2,7 @@ import Vue from 'vue';
 import { gsap } from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Observer from '@/plugins/Observer/Observer.js';
 
 gsap.registerPlugin(SplitText);
 gsap.registerPlugin(ScrollTrigger);
