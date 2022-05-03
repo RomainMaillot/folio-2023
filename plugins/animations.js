@@ -72,10 +72,7 @@ Vue.directive('translate-in', {
 		});
 
 		function getElements(el, options) {
-			if (
-				options.target == 'self' ||
-				(options.target == 'childs' && options.trigger == 'self')
-			) {
+			if (options.target == 'self' || (options.target == 'childs' && options.trigger == 'self')) {
 				return [el];
 			}
 
@@ -109,8 +106,7 @@ Vue.directive('translate-in', {
 			to.force3D = true;
 
 			if (options.animateOpacity) to.opacity = 1;
-			if (options.target == 'childs' && options.trigger == 'self')
-				to.stagger = options.stagger;
+			if (options.target == 'childs' && options.trigger == 'self') to.stagger = options.stagger;
 
 			return to;
 		}
@@ -122,5 +118,183 @@ Vue.directive('translate-in', {
 		binding.animationTriggers?.forEach((trigger) => {
 			trigger.kill();
 		});
+	},
+});
+
+/*
+  SplitText WIP UPDATE
+  [v-split-text]
+
+  Options:
+  {
+
+  }
+*/
+
+// Vue.directive('split-text', {
+// 	inserted: (el, binding) => {
+// 		const defaults = {
+// 			delay: 0,
+// 			type: 'lines',
+// 			duration: 1.1,
+// 			initialY:'105%'
+// 		};
+// 		const options = { ...defaults, ...binding.value };
+// 	},
+// 	unbind: (el, binding) => {
+// 	},
+// });
+
+Vue.directive('split-text', {
+	bind: (el, binding) => {
+		// Init
+		if (!window.splitTexts) {
+			window.splitTexts = [];
+		}
+
+		// Get root style
+		const rootStyle = getComputedStyle(document.documentElement);
+
+		// Get delay
+		const delay = binding.value && binding.value.delay ? parseFloat(binding.value.delay) : 0;
+		let delayComplete = 0;
+
+		// Get split type
+		const splitType = binding.value && binding.value.type ? binding.value.type : rootStyle.getPropertyValue('--split-type');
+
+		// Add anim class
+		el.classList.add('anim--split');
+
+		// Intersection callback
+		function onIntersect(observer) {
+			if (observer.isIntersecting) {
+				gsap.delayedCall(delay, () => {
+					if (el) {
+						onStart(); // callback onStart
+						el.classList.add('anim--split--in');
+						gsap.delayedCall(delayComplete, onComplete); // callback onComplete
+					}
+				});
+			}
+		}
+
+		// onStart callback
+		function onStart() {}
+
+		// onComplete callback
+		function onComplete() {}
+
+		// Wait for fonts to load before splitting
+		gsap.delayedCall(0.2, () => {
+			// Split
+			const mySplitText = new SplitText(el, {
+				type: splitType.includes('line') ? 'words, lines' : `${splitType}, lines`,
+				wordsClass: 'anim--split__word',
+				linesClass: 'anim--split__line',
+				charsClass: 'anim--split__char',
+			});
+			const lines = mySplitText.lines;
+			const words = mySplitText.words;
+			const chars = mySplitText.chars;
+
+			if (splitType.includes('line')) {
+				lines.forEach((line, index) => {
+					const words = line.querySelectorAll('.anim--split__word');
+					words.forEach((word) => {
+						word.style.setProperty('--split-index', index);
+					});
+				});
+			} else {
+				words.forEach((word, index) => {
+					word.style.setProperty('--split-index', index);
+				});
+			}
+			chars.forEach((char, index) => {
+				char.style.setProperty('--split-index', index);
+			});
+
+			// Get delay for onComplete callback
+			const animDuration = parseFloat(rootStyle.getPropertyValue('--split-duration'));
+			const animStagger = splitType.includes('char')
+				? parseFloat(rootStyle.getPropertyValue('--split-stagger-char'))
+				: parseFloat(rootStyle.getPropertyValue('--split-stagger-word'));
+
+			if (splitType.includes('line')) {
+				delayComplete = animDuration + (lines.length - 1) * animStagger;
+			} else if (splitType.includes('word')) {
+				delayComplete = animDuration + (words.length - 1) * animStagger;
+			} else if (splitType.includes('char')) {
+				delayComplete = animDuration + (chars.length - 1) * animStagger;
+			}
+
+			// Intersection Observer push
+			window.splitTexts.push(
+				new Observer(el, {
+					rootMargin: `0px 0px -20% 0px `,
+					onIntersect: onIntersect,
+					once: true,
+				})
+			);
+		});
+	},
+	unbind: (el) => {
+		if (window.splitTexts) {
+			for (let i = 0; i < window.splitTexts.length; i++) {
+				if (window.splitTexts[i] && window.splitTexts[i].destroy()) {
+					window.splitTexts[i].destroy();
+					window.splitTexts[i] = null;
+				}
+			}
+			window.splitTexts = null;
+		}
+	},
+});
+
+/*
+  Parallax
+  [v-parallax]
+*/
+Vue.directive('parallax', {
+	bind: (el, binding) => {
+		if (!window.parallaxes) {
+			window.parallaxes = [];
+		}
+
+		// Get amplitude
+		const amplitude = binding.value && binding.value.amplitude ? parseFloat(binding.value.amplitude) : 100;
+		const rotation = binding.value && binding.value.rotation ? parseFloat(binding.value.rotation) : 0;
+
+		gsap.delayedCall($nuxt.$store.state.app.loaderOut, () => {
+			const parallax = gsap.fromTo(
+				el,
+				{
+					y: amplitude * 0.5,
+					rotation: -rotation * 0.5,
+				},
+				{
+					y: -amplitude * 0.5,
+					rotation: rotation * 0.5,
+					force3D: true,
+					ease: 'none',
+					scrollTrigger: {
+						trigger: el,
+						scrub: 1.5,
+					},
+				}
+			);
+
+			window.parallaxes.push(parallax);
+		});
+	},
+	unbind: (el) => {
+		if (window.parallaxes) {
+			for (let i = 0; i < window.parallaxes.length; i++) {
+				if (window.parallaxes[i] && window.parallaxes[i].kill()) {
+					window.parallaxes[i].kill();
+					window.parallaxes[i] = null;
+				}
+			}
+			window.parallaxes = null;
+		}
 	},
 });
