@@ -17,64 +17,85 @@ p {
 	line-height: 1.5em;
 }
 
+@mixin fontSizeResponsive($max, $min, $maxNumber) {
+	font-size: clamp($min, calc($maxNumber / 1440 * 100vw), calc($max * 1.5));
+}
+
 .uber-style {
 	// Font-size 150px in figma
-	// vw = 150 / 1440 * 100
-	font-size: clamp(60px, 10.4vw, calc(150px * 1.5));
+	$uberStyle: 150px;
+	$uberStyleNum: 150;
+	$uberStyleMobile: 60px;
+	@include fontSizeResponsive($uberStyle, $uberStyleMobile, $uberStyleNum);
 	line-height: 1.35em;
 	font-family: $medium;
 }
 
 .h1-style {
 	// Font-size 100px in figma
-	// vw = 100 / 1440 * 100
-	font-size: clamp(42px, 7vw, calc(100px * 1.5));
+	$h1Style: 100px;
+	$h1StyleNum: 100;
+	$h1StyleMobile: 42px;
+	@include fontSizeResponsive($h1Style, $h1StyleMobile, $h1StyleNum);
 	line-height: 1.2em;
 	font-family: $semiBold;
 }
 
 .h2-style {
 	// Font-size 80px in figma
-	// vw = 80 / 1440 * 100
-	font-size: clamp(36px, 5.5vw, calc(80px * 1.5));
+	$h2Style: 80px;
+	$h2StyleNum: 80;
+	$h2StyleMobile: 36px;
+	@include fontSizeResponsive($h2Style, $h2StyleMobile, $h2StyleNum);
 	line-height: 1.35em;
 	font-family: $semiBold;
 }
 
 .h3-style {
 	// Font-size 60px in figma
-	// vw = 60 / 1440 * 100
-	font-size: clamp(28px, 4.2vw, calc(60px * 1.5));
+	$h3Style: 60px;
+	$h3StyleNum: 60;
+	$h3StyleMobile: 28px;
+	@include fontSizeResponsive($h3Style, $h3StyleMobile, $h3StyleNum);
 	line-height: 1.15em;
 	font-family: $medium;
 }
 
 .h4-style {
 	// Font-size 40px in figma
-	// vw = 40 / 1440 * 100
-	font-size: clamp(24px, 2.8vw, calc(40px * 1.5));
+	$h4Style: 40px;
+	$h4StyleNum: 40;
+	$h4StyleMobile: 24px;
+	@include fontSizeResponsive($h4Style, $h4StyleMobile, $h4StyleNum);
 	line-height: 1.15em;
 	font-family: $medium;
 }
 
 .h5-style {
-	// Font-size 40px in figma
-	// vw = 30 / 1440 * 100
-	font-size: clamp(20px, 2.1vw, calc(30px * 1.5));
+	// Font-size 30px in figma
+	$h5Style: 30px;
+	$h5StyleNum: 30;
+	$h5StyleMobile: 20px;
+	@include fontSizeResponsive($h5Style, $h5StyleMobile, $h5StyleNum);
 	line-height: 1.15em;
 	font-family: $regular;
 }
 
 .h6-style {
 	// Font-size 24px in figma
-	// vw = 24 / 1440 * 100
-	font-size: clamp(18px, 1.7vw, calc(24px * 1.5));
+	$h6Style: 24px;
+	$h6StyleNum: 24;
+	$h6StyleMobile: 18px;
+	@include fontSizeResponsive($h6Style, $h6StyleMobile, $h6StyleNum);
 	line-height: 1.15em;
 	font-family: $regular;
 }
 
 .body-l-style {
-	font-size: 16px;
+	$bodyLStyle: 16px;
+	$bodyLStyleNum: 16;
+	$bodyLStyleMobile: 14px;
+	@include fontSizeResponsive($bodyLStyle, $bodyLStyleMobile, $bodyLStyleNum);
 	line-height: 1.5em;
 	font-family: $regular;
 }
@@ -92,24 +113,34 @@ p {
 }
 
 /**
- * Sizes
- */
-$xxs: 16px;
-$xs: 32px;
-$s: 48px;
-$m: 96px;
-$l: 144px;
-$xl: 192px;
-$xxl: 272px;
+  * Sizes
+  */
+// $xxs: 16px;
+// $xs: 32px;
+// $s: 48px;
+// $m: 96px;
+// $l: 144px;
+// $xl: 192px;
+// $xxl: 272px;
+
+$xxs: 1.1vw;
+$xs: 2.2vw;
+$s: 4.4vw;
+$m: 6.6vw;
+$l: 10vw;
+$xl: 13.3vw;
+$xxl: 18.8vw;
 
 /**
- * Colors
- */
+  * Colors
+  */
 $color-main: #4434c2;
 $color-secondary: #ec34c2;
 $color-text-main: #000;
 $color-text-secondary: #fff;
 
 /**
- * Border Radius
- */
+  * Border Radius
+  */
+
+$br-main: 16px;
