@@ -16,6 +16,7 @@ const Viewport = new Vue({
 
 		this.resizeSmoothDebounced = this.debounce(this.onResizeDebounced, 400);
 		this.setEvents();
+		this.onResize();
 	},
 	methods: {
 		/**
