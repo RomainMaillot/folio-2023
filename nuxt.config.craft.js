@@ -35,15 +35,14 @@ export default {
 	],
 
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-	buildModules: [
-		'nuxt-lazysizes',
-		'@nuxtjs/device',
-		'@nuxtjs/dotenv',
-		'@nuxtjs/router',
-	],
+	buildModules: ['nuxt-lazysizes', '@nuxtjs/device', '@nuxtjs/dotenv', '@nuxtjs/router'],
 
 	// Modules: https://go.nuxtjs.dev/config-modules
-	modules: ['@nuxtjs/style-resources'],
+	modules: ['@nuxtjs/style-resources', '@nuxtjs/apollo', '@nuxtjs/gtm'],
+
+	gtm: {
+		id: 'GTM-XXXXXXX',
+	},
 
 	styleResources: {
 		scss: [
@@ -67,6 +66,7 @@ export default {
 		},
 	},
 	server: {
+		host: '0',
 		port: process.env.PORT,
 	},
 	// Build Configuration: https://go.nuxtjs.dev/config-build

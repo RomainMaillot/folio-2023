@@ -112,35 +112,28 @@ p {
 	font-family: $regular;
 }
 
-/**
-  * Sizes
-  */
-// $xxs: 16px;
-// $xs: 32px;
-// $s: 48px;
-// $m: 96px;
-// $l: 144px;
-// $xl: 192px;
-// $xxl: 272px;
+:root {
+	/**
+    * Sizes
+    */
+	--xxs: 1.1vw; //16px
+	--xs: 2.2vw; //32px
+	--s: 4.4vw; //48px
+	--m: 6.6vw; //96px
+	--l: 10vw; //144px
+	--xl: 13.3vw; //192px
+	--xxl: 18.8vw; //272px
 
-$xxs: 1.1vw;
-$xs: 2.2vw;
-$s: 4.4vw;
-$m: 6.6vw;
-$l: 10vw;
-$xl: 13.3vw;
-$xxl: 18.8vw;
+	/**
+	* Colors
+	*/
+	--color-main: #4434c2;
+	--color-secondary: #ec34c2;
+	--color-text-main: #000;
+	--color-text-secondary: #fff;
 
-/**
-  * Colors
-  */
-$color-main: #4434c2;
-$color-secondary: #ec34c2;
-$color-text-main: #000;
-$color-text-secondary: #fff;
-
-/**
-  * Border Radius
-  */
-
-$br-main: 16px;
+	/**
+	* Border Radius
+	*/
+	--br-main: 16px;
+}

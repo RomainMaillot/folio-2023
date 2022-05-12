@@ -33,10 +33,10 @@
 			</div>
 			<div class="section section--colors">
 				<h2 class="section__title">Colors</h2>
-				<div class="color-main">Color Main ( $color-main )</div>
-				<div class="color-secondary">Color Secondary ( $color-secondary )</div>
-				<div class="color-text-main">Color Text Main ( $color-text-main )</div>
-				<div class="color-text-secondary">Color Text Secondary ( $color-text-secondary )</div>
+				<div class="color-main">Color Main ( --color-main )</div>
+				<div class="color-secondary">Color Secondary ( --color-secondary )</div>
+				<div class="color-text-main">Color Text Main ( --color-text-main )</div>
+				<div class="color-text-secondary">Color Text Secondary ( --color-text-secondary )</div>
 			</div>
 		</div>
 	</SmoothScroll>
@@ -63,11 +63,11 @@ export default {
 .styleguide {
 	width: 100%;
 	background-color: #fff;
-	padding: 0 $m $m $m;
+	padding: 0 var(--m) var(--m) var(--m);
 	color: #000;
 
 	@media #{$mobile-large} {
-		padding: 0 $xxs $xxs $xxs;
+		padding: 0 var(--xxs) var(--xxs) var(--xxs);
 	}
 
 	.image {
@@ -76,18 +76,18 @@ export default {
 	}
 
 	.section {
-		margin-bottom: $m;
+		margin-bottom: var(--m);
 
 		&__container {
-			padding: 0 $xs $xs $xs;
+			padding: 0 var(--xs) var(--xs) var(--xs);
 		}
 
 		&__title {
 			@extend .h4-style;
-			padding: $xs;
+			padding: var(--xs);
 			background-color: #000;
 			color: #fff;
-			margin-bottom: $xs;
+			margin-bottom: var(--xs);
 		}
 
 		&--svgs {
@@ -97,12 +97,12 @@ export default {
 				width: 48px;
 				height: 48px;
 				fill: #fff;
-				margin-right: $xs;
+				margin-right: var(--xs);
 			}
 		}
 
 		&--spacers {
-			margin-top: $s;
+			margin-top: var(--s);
 
 			div {
 				margin-bottom: 10px;
@@ -116,14 +116,14 @@ export default {
 			.color-main {
 				display: flex;
 				align-items: center;
-				margin-bottom: $xxs;
+				margin-bottom: var(--xxs);
 				line-height: 1em;
 				&:before {
 					content: '';
 					display: block;
 					width: 1em;
 					height: 1em;
-					background-color: $color-main;
+					background-color: var(--color-main);
 					display: inline-block;
 					border-radius: 4px;
 					margin-right: 5px;
@@ -133,14 +133,14 @@ export default {
 			.color-secondary {
 				display: flex;
 				align-items: center;
-				margin-bottom: $xxs;
+				margin-bottom: var(--xxs);
 				line-height: 1em;
 				&:before {
 					content: '';
 					display: block;
 					width: 1em;
 					height: 1em;
-					background-color: $color-secondary;
+					background-color: var(--color-secondary);
 					display: inline-block;
 					border-radius: 4px;
 					margin-right: 5px;
@@ -150,14 +150,14 @@ export default {
 			.color-text-main {
 				display: flex;
 				align-items: center;
-				margin-bottom: $xxs;
+				margin-bottom: var(--xxs);
 				line-height: 1em;
 				&:before {
 					content: '';
 					display: block;
 					width: 1em;
 					height: 1em;
-					background-color: $color-text-main;
+					background-color: var(--color-text-main);
 					display: inline-block;
 					border-radius: 4px;
 					margin-right: 5px;
@@ -167,14 +167,14 @@ export default {
 			.color-text-secondary {
 				display: flex;
 				align-items: center;
-				margin-bottom: $xxs;
+				margin-bottom: var(--xxs);
 				line-height: 1em;
 				&:before {
 					content: '';
 					display: block;
 					width: 1em;
 					height: 1em;
-					background-color: $color-text-secondary;
+					background-color: var(--color-text-secondary);
 					display: inline-block;
 					border-radius: 4px;
 					margin-right: 5px;
@@ -188,38 +188,38 @@ export default {
 		background-color: lightgray;
 
 		&-xxs {
-			width: $xxs;
-			height: $xxs;
+			width: var(--xxs);
+			height: var(--xxs);
 		}
 
 		&-xs {
-			width: $xs;
-			height: $xs;
+			width: var(--xs);
+			height: var(--xs);
 		}
 
 		&-s {
-			width: $s;
-			height: $s;
+			width: var(--s);
+			height: var(--s);
 		}
 
 		&-m {
-			width: $m;
-			height: $m;
+			width: var(--m);
+			height: var(--m);
 		}
 
 		&-l {
-			width: $l;
-			height: $l;
+			width: var(--l);
+			height: var(--l);
 		}
 
 		&-xl {
-			width: $xl;
-			height: $xl;
+			width: var(--xl);
+			height: var(--xl);
 		}
 
 		&-xxl {
-			width: $xxl;
-			height: $xxl;
+			width: var(--xxl);
+			height: var(--xxl);
 		}
 	}
 }

@@ -3,12 +3,6 @@
 </template>
 
 <script>
-const icons = {
-	logo: () => import('./svgs/Logo.vue'),
-	burger: () => import('./svgs/Burger.vue'),
-	close: () => import('./svgs/Close.vue'),
-};
-
 export default {
 	name: 'SvgIcon',
 	props: {
@@ -20,10 +14,26 @@ export default {
 			type: String,
 		},
 	},
-
-	computed: {
-		iconComponent() {
-			return icons[this.name] ? icons[this.name] : null;
+	data() {
+		return {
+			iconComponent: this.getIcon(),
+		};
+	},
+	methods: {
+		checkModules() {
+			let exist = true;
+			try {
+				var foo = require(`@/components/shared/SvgIcon/svgs/${this.name}.vue`);
+			} catch (e) {
+				if (e instanceof Error && e.code === 'MODULE_NOT_FOUND') {
+					console.warn('Icon "' + this.name + '" not found in components/icons');
+					exist = false;
+				} else throw e;
+			}
+			return exist;
+		},
+		getIcon() {
+			return this.checkModules() ? () => import(`@/components/shared/SvgIcon/svgs/${this.name}.vue`) : null;
 		},
 	},
 };

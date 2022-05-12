@@ -2,7 +2,7 @@
 	<div class="loader" :style="cssVars">
 		<div class="loader__bg"></div>
 		<div class="loader__inner">
-			<SvgIcon name="logo" />
+			<SvgIcon name="Logo" />
 		</div>
 	</div>
 </template>

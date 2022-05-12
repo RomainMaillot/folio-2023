@@ -35,16 +35,15 @@ export default {
 	],
 
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-	buildModules: [
-		'nuxt-lazysizes',
-		'@nuxtjs/device',
-		'@nuxtjs/dotenv',
-		'@nuxtjs/router',
-	],
+	buildModules: ['nuxt-lazysizes', '@nuxtjs/device', '@nuxtjs/dotenv', '@nuxtjs/router'],
 
 	// Modules: https://go.nuxtjs.dev/config-modules
-	modules: ['@nuxtjs/style-resources'],
+	modules: ['@nuxtjs/style-resources', '@nuxtjs/apollo', '@nuxtjs/gtm'],
 
+	// GTM ID
+	gtm: {
+		id: 'GTM-XXXXXXX',
+	},
 	styleResources: {
 		scss: [
 			'./assets/sass/utils/variables.scss',
@@ -120,19 +119,14 @@ export default {
 			`,
 		});
 
-		if (
-			response.data.redirection &&
-			response.data.redirection.redirects !== null
-		) {
-			cmsRedirects = [...response.data.redirection.redirects].map(
-				(item) => {
-					return {
-						from: item.origin,
-						to: item.target,
-						code: item.code,
-					};
-				}
-			);
+		if (response.data.redirection && response.data.redirection.redirects !== null) {
+			cmsRedirects = [...response.data.redirection.redirects].map((item) => {
+				return {
+					from: item.origin,
+					to: item.target,
+					code: item.code,
+				};
+			});
 		} else {
 			console.log('Connection failed');
 		}

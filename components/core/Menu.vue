@@ -3,7 +3,7 @@
 		<NuxtLink to="/">Home</NuxtLink>
 		<NuxtLink to="/style-guide">Style Guide</NuxtLink>
 		<button class="btn-close" @click="onCloseMenu">
-			<SvgIcon name="close" />
+			<SvgIcon name="Close" />
 		</button>
 	</nav>
 </template>

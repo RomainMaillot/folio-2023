@@ -12,6 +12,7 @@ export default {
 		this.$nextTick(() => {
 			this.$nuxt.$emit('loader-hide');
 		});
+		this.$nuxt.$emit('page-view', this.metaTitle);
 	},
 };
 </script>

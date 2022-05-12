@@ -40,7 +40,7 @@ Vue.directive('translate-in', {
 			target: 'self',
 			trigger: 'self',
 			axis: 'y',
-			duration: 3,
+			duration: 0.4,
 			distanceFrom: 100,
 			distanceTo: 0,
 			stagger: 0.2,
@@ -121,30 +121,6 @@ Vue.directive('translate-in', {
 		});
 	},
 });
-
-/*
-  SplitText WIP UPDATE
-  [v-split-text]
-
-  Options:
-  {
-
-  }
-*/
-
-// Vue.directive('split-text', {
-// 	inserted: (el, binding) => {
-// 		const defaults = {
-// 			delay: 0,
-// 			type: 'lines',
-// 			duration: 1.1,
-// 			initialY:'105%'
-// 		};
-// 		const options = { ...defaults, ...binding.value };
-// 	},
-// 	unbind: (el, binding) => {
-// 	},
-// });
 
 Vue.directive('split-text', {
 	bind: (el, binding) => {
