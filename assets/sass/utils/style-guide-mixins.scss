@@ -6,22 +6,11 @@ $regular: 'Graphik-Regular';
 $semiBold: 'Graphik-SemiBold';
 $medium: 'Graphik-Medium';
 
-html,
-body {
-	color: #fff;
-	font-family: $regular;
-	line-height: 1.25em;
-}
-
-p {
-	line-height: 1.5em;
-}
-
 @mixin fontSizeResponsive($max, $min, $maxNumber) {
 	font-size: clamp($min, calc($maxNumber / 1440 * 100vw), calc($max * 1.5));
 }
 
-.uber-style {
+@mixin uber-style {
 	// Font-size 150px in figma
 	$uberStyle: 150px;
 	$uberStyleNum: 150;
@@ -31,7 +20,7 @@ p {
 	font-family: $medium;
 }
 
-.h1-style {
+@mixin h1-style {
 	// Font-size 100px in figma
 	$h1Style: 100px;
 	$h1StyleNum: 100;
@@ -41,7 +30,7 @@ p {
 	font-family: $semiBold;
 }
 
-.h2-style {
+@mixin h2-style {
 	// Font-size 80px in figma
 	$h2Style: 80px;
 	$h2StyleNum: 80;
@@ -51,7 +40,7 @@ p {
 	font-family: $semiBold;
 }
 
-.h3-style {
+@mixin h3-style {
 	// Font-size 60px in figma
 	$h3Style: 60px;
 	$h3StyleNum: 60;
@@ -61,7 +50,7 @@ p {
 	font-family: $medium;
 }
 
-.h4-style {
+@mixin h4-style {
 	// Font-size 40px in figma
 	$h4Style: 40px;
 	$h4StyleNum: 40;
@@ -71,7 +60,7 @@ p {
 	font-family: $medium;
 }
 
-.h5-style {
+@mixin h5-style {
 	// Font-size 30px in figma
 	$h5Style: 30px;
 	$h5StyleNum: 30;
@@ -81,7 +70,7 @@ p {
 	font-family: $regular;
 }
 
-.h6-style {
+@mixin h6-style {
 	// Font-size 24px in figma
 	$h6Style: 24px;
 	$h6StyleNum: 24;
@@ -91,7 +80,7 @@ p {
 	font-family: $regular;
 }
 
-.body-l-style {
+@mixin body-l-style {
 	$bodyLStyle: 16px;
 	$bodyLStyleNum: 16;
 	$bodyLStyleMobile: 14px;
@@ -100,40 +89,14 @@ p {
 	font-family: $regular;
 }
 
-.body-m-style {
+@mixin body-m-style {
 	font-size: 14px;
 	line-height: 1.5em;
 	font-family: $regular;
 }
 
-.body-s-style {
+@mixin body-s-style {
 	font-size: 12px;
 	line-height: 1.5em;
 	font-family: $regular;
-}
-
-:root {
-	/**
-    * Sizes
-    */
-	--xxs: 1.1vw; //16px
-	--xs: 2.2vw; //32px
-	--s: 4.4vw; //48px
-	--m: 6.6vw; //96px
-	--l: 10vw; //144px
-	--xl: 13.3vw; //192px
-	--xxl: 18.8vw; //272px
-
-	/**
-	* Colors
-	*/
-	--color-main: #4434c2;
-	--color-secondary: #ec34c2;
-	--color-text-main: #000;
-	--color-text-secondary: #fff;
-
-	/**
-	* Border Radius
-	*/
-	--br-main: 16px;
 }

@@ -18,7 +18,7 @@ export default {
 	@include flex(center, center);
 
 	h1 {
-		@extend .h1-style;
+		@include h1-style;
 	}
 }
 </style>

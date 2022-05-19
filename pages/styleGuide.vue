@@ -83,7 +83,7 @@ export default {
 		}
 
 		&__title {
-			@extend .h4-style;
+			@include h4-style;
 			padding: var(--xs);
 			background-color: #000;
 			color: #fff;

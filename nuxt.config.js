@@ -47,8 +47,8 @@ export default {
 
 	styleResources: {
 		scss: [
-			'./assets/sass/utils/variables.scss',
-			'./assets/sass/utils/style-guide.scss',
+			'./assets/sass/utils/media-queries.scss',
+			'./assets/sass/utils/style-guide-mixins.scss',
 			'./assets/sass/utils/easings.scss',
 			'./assets/sass/utils/tools.scss',
 		],
