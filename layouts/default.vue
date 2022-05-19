@@ -11,7 +11,6 @@ import detectBrowserAndDevice from '@/helpers/detectBrowserAndDevice';
 export default {
 	created() {
 		// Sent pageview gtm
-		console.log('hey');
 		this.$nuxt.$on('page-view', this.pageView);
 	},
 	mounted() {
@@ -20,7 +19,6 @@ export default {
 	},
 	methods: {
 		pageView(title) {
-			console.log('yoo');
 			this.$gtm.push({
 				event: 'Pageview',
 				page: {

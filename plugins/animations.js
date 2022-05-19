@@ -161,8 +161,21 @@ Vue.directive('split-text', {
 		// onComplete callback
 		function onComplete() {}
 
-		// Wait for fonts to load before splitting
-		gsap.delayedCall(0.2, () => {
+		// Check if font is loaded before splitting
+		if (document.fonts.status == 'loaded') {
+			iniSplitText();
+		} else {
+			checkIfLoaded();
+			function checkIfLoaded() {
+				if (document.fonts.status != 'loaded') {
+					window.requestAnimationFrame(checkIfLoaded);
+				} else {
+					iniSplitText();
+				}
+			}
+		}
+
+		function iniSplitText() {
 			// Split
 			const mySplitText = new SplitText(el, {
 				type: splitType.includes('line') ? 'words, lines' : `${splitType}, lines`,
@@ -212,7 +225,7 @@ Vue.directive('split-text', {
 					once: true,
 				})
 			);
-		});
+		}
 	},
 	unbind: (el) => {
 		if (window.splitTexts) {

@@ -16,9 +16,9 @@ export default {
 		setSmoothScroll() {
 			gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 			const smoothOptions = {
-				smooth: 0.6,
+				smooth: 0.7,
 				effects: true,
-				ease: 'power4',
+				ease: 'expo',
 			};
 
 			smoothOptions.onUpdate = (smoother) => {
@@ -29,10 +29,9 @@ export default {
 		},
 	},
 	mounted() {
-		if (process.client) {
-			window.scrollTo(0, 0);
-		}
 		this.setSmoothScroll();
+		window.scrollTo(0, 0);
+		SmootherObservable.smoother.scrollTo(0);
 	},
 	destroyed() {
 		SmootherObservable.smoother.kill();
