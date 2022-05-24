@@ -58,6 +58,8 @@ Vue.directive('translate-in', {
 			const from = getFrom(options);
 			const to = getTo(options, tweenElement);
 
+			gsap.set(tweenElement, from);
+
 			animationTriggers = ScrollTrigger.create({
 				trigger: options.trigger == 'childs' ? loopElement : el,
 				once: true,
