@@ -1,3 +1,10 @@
+import fetch from 'node-fetch';
+import Redirections from './redirects.js';
+import gql from 'graphql-tag';
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createHttpLink } from 'apollo-link-http';
+
 export default {
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
