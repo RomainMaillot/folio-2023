@@ -35,8 +35,8 @@
 				<h2 class="section__title">Colors</h2>
 				<div class="color-main">Color Main ( --color-main )</div>
 				<div class="color-secondary">Color Secondary ( --color-secondary )</div>
-				<div class="color-text-main">Color Text Main ( --color-text-main )</div>
-				<div class="color-text-secondary">Color Text Secondary ( --color-text-secondary )</div>
+				<div class="color-black">Color Black ( --color-black )</div>
+				<div class="color-white">Color White ( --color-white )</div>
 			</div>
 		</div>
 	</SmoothScroll>
@@ -147,7 +147,7 @@ export default {
 					border: 1px solid gray;
 				}
 			}
-			.color-text-main {
+			.color-black {
 				display: flex;
 				align-items: center;
 				margin-bottom: var(--xxs);
@@ -157,14 +157,14 @@ export default {
 					display: block;
 					width: 1em;
 					height: 1em;
-					background-color: var(--color-text-main);
+					background-color: var(--color-black);
 					display: inline-block;
 					border-radius: 4px;
 					margin-right: 5px;
 					border: 1px solid gray;
 				}
 			}
-			.color-text-secondary {
+			.color-white {
 				display: flex;
 				align-items: center;
 				margin-bottom: var(--xxs);
@@ -174,7 +174,7 @@ export default {
 					display: block;
 					width: 1em;
 					height: 1em;
-					background-color: var(--color-text-secondary);
+					background-color: var(--color-white);
 					display: inline-block;
 					border-radius: 4px;
 					margin-right: 5px;
