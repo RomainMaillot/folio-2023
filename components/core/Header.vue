@@ -3,10 +3,10 @@
 		<div class="header__background"></div>
 		<div class="header__container">
 			<NuxtLink to="/">
-				<SvgIcon name="Logo" className="header__logo" />
+				<Logo class="header__logo" />
 			</NuxtLink>
 			<button class="header__btn" @click="onToggleMenu">
-				<SvgIcon name="Burger" className="header__svg-menu" />
+				<Burger class="header__svg-menu" />
 			</button>
 		</div>
 		<Menu :isVisible="isMenuOpened" @onCloseMenu="onCloseMenu" />

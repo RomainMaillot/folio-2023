@@ -28,7 +28,9 @@
 			<div class="section section--svgs">
 				<h2 class="section__title">Svgs</h2>
 				<div class="section__container">
-					<SvgIcon v-for="svg in svgList" :key="svg" :name="svg" />
+					<Burger />
+					<Close />
+					<Logo />
 				</div>
 			</div>
 			<div class="section section--colors">
@@ -43,14 +45,7 @@
 </template>
 
 <script>
-import svgList from '@/components/shared/SvgIcon/svgList';
-
 export default {
-	data() {
-		return {
-			svgList: svgList,
-		};
-	},
 	mounted() {
 		this.$nextTick(() => {
 			this.$nuxt.$emit('loader-hide');

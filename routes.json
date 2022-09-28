@@ -1,0 +1,18 @@
+[
+	{
+		"lang": "fr",
+		"slugApi": "styleguide",
+		"template": "styleguide",
+		"routes": "/style-guide",
+		"status": "publish",
+		"routesTranslation": "/en/styleguide/"
+	},
+	{
+		"lang": "fr",
+		"slugApi": "home",
+		"template": "home",
+		"routes": "/",
+		"status": "publish",
+		"routesTranslation": "/en/home/"
+	}
+]
