@@ -29,11 +29,7 @@ export default {
 	css: ['~assets/sass/application.scss'],
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: [
-		{ src: '~/plugins/vue-plyr', mode: 'client' },
-		{ src: '~/plugins/animations.js', mode: 'client' },
-		{ src: '~/plugins/global.js' },
-	],
+	plugins: [{ src: '~/plugins/vue-plyr', mode: 'client' }, { src: '~/plugins/animations.js', mode: 'client' }, { src: '~/plugins/global.js' }],
 
 	components: [
 		{
@@ -43,7 +39,7 @@ export default {
 	],
 
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-	buildModules: ['nuxt-lazysizes', '@nuxtjs/device', '@nuxtjs/dotenv', '@nuxtjs/router'],
+	buildModules: ['nuxt-webpack-optimisations', 'nuxt-lazysizes', '@nuxtjs/device', '@nuxtjs/dotenv', '@nuxtjs/router'],
 
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: ['@nuxtjs/style-resources', '@nuxtjs/apollo', '@nuxtjs/gtm'],
@@ -53,13 +49,16 @@ export default {
 		id: 'GTM-XXXXXXX',
 	},
 	styleResources: {
-		scss: [
-			'./assets/sass/utils/media-queries.scss',
-			'./assets/sass/utils/style-guide-mixins.scss',
-			'./assets/sass/utils/easings.scss',
-			'./assets/sass/utils/tools.scss',
-		],
+		scss: ['./assets/sass/utils/media-queries.scss', './assets/sass/utils/style-guide-mixins.scss', './assets/sass/utils/easings.scss', './assets/sass/utils/tools.scss'],
 		hoistUseStatements: true,
+	},
+
+	webpackOptimisations: {
+		features: {
+			// enable risky optimisations in dev only
+			hardSourcePlugin: process.env.ENV == 'dev',
+			parallelPlugin: process.env.ENV == 'dev',
+		},
 	},
 
 	lazySizes: {

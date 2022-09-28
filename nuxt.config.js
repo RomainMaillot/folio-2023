@@ -22,11 +22,7 @@ export default {
 	css: ['~assets/sass/application.scss'],
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: [
-		{ src: '~/plugins/vue-plyr', mode: 'client' },
-		{ src: '~/plugins/animations.js', mode: 'client' },
-		{ src: '~/plugins/global.js' },
-	],
+	plugins: [{ src: '~/plugins/vue-plyr', mode: 'client' }, { src: '~/plugins/animations.js', mode: 'client' }, { src: '~/plugins/global.js' }],
 
 	components: [
 		{
@@ -36,7 +32,7 @@ export default {
 	],
 
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-	buildModules: ['nuxt-lazysizes', '@nuxtjs/device', '@nuxtjs/dotenv', '@nuxtjs/router'],
+	buildModules: ['nuxt-webpack-optimisations', 'nuxt-lazysizes', '@nuxtjs/device', '@nuxtjs/dotenv', '@nuxtjs/router'],
 
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: ['@nuxtjs/style-resources', '@nuxtjs/gtm'],
@@ -46,13 +42,16 @@ export default {
 	},
 
 	styleResources: {
-		scss: [
-			'./assets/sass/utils/media-queries.scss',
-			'./assets/sass/utils/style-guide-mixins.scss',
-			'./assets/sass/utils/easings.scss',
-			'./assets/sass/utils/tools.scss',
-		],
+		scss: ['./assets/sass/utils/media-queries.scss', './assets/sass/utils/style-guide-mixins.scss', './assets/sass/utils/easings.scss', './assets/sass/utils/tools.scss'],
 		hoistUseStatements: true,
+	},
+
+	webpackOptimisations: {
+		features: {
+			// enable risky optimisations in dev only
+			hardSourcePlugin: process.env.ENV == 'dev',
+			parallelPlugin: process.env.ENV == 'dev',
+		},
 	},
 
 	lazySizes: {
@@ -67,15 +66,15 @@ export default {
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {
 		// fix to work with swiperjs 8 - need to run with standalone:true. That can make some troubles.
-    standalone: true,
-    extend(config, ctx) {
-      // fix to work with swiperjs 8 add needed deps. you can get them from error when doing nuxt generate
-      config.externals = [
-        {
-          encoding: 'encoding',
-        },
-      ]
-    },
+		standalone: true,
+		extend(config, ctx) {
+			// fix to work with swiperjs 8 add needed deps. you can get them from error when doing nuxt generate
+			config.externals = [
+				{
+					encoding: 'encoding',
+				},
+			];
+		},
 		extend(config, ctx) {
 			config.node = {
 				fs: 'empty',
