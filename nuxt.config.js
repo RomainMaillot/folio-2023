@@ -34,7 +34,7 @@ export default {
 	],
 
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-	buildModules: ['nuxt-webpack-optimisations', 'nuxt-lazysizes', '@nuxtjs/device', '@nuxtjs/dotenv', '@nuxtjs/router'],
+	buildModules: ['nuxt-webpack-optimisations', 'nuxt-lazysizes', '@nuxtjs/device', '@nuxtjs/dotenv'],
 
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: ['@nuxtjs/style-resources', '@nuxtjs/gtm'],
