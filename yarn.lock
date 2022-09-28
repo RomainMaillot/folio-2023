@@ -2091,14 +2091,6 @@
   dependencies:
     "http-proxy-middleware" "^1.0.6"
 
-"@nuxtjs/router@^1.7.0":
-  "integrity" "sha512-7OXEYqE/7uM/7Bx1Ab8udyFgBux9h5IisJqNLMNa5hxt9oBtF43VXHEnnQV4FtYpKyg8ysTFDT9FJlC+tGqpQg=="
-  "resolved" "https://registry.npmjs.org/@nuxtjs/router/-/router-1.7.0.tgz"
-  "version" "1.7.0"
-  dependencies:
-    "consola" "^2.15.3"
-    "defu" "^5.0.0"
-
 "@nuxtjs/style-resources@^1.2.1":
   "integrity" "sha512-sOp71gCBNuGK2jchybTtVab83yB7jnSr+hw6DAKDgAGX/jrMYUyxRc9tiFxe+8YDSnqghTgQrkEkqPsfS4D4sg=="
   "resolved" "https://registry.npmjs.org/@nuxtjs/style-resources/-/style-resources-1.2.1.tgz"
