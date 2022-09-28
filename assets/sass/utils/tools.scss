@@ -94,6 +94,21 @@
 	}
 }
 
+@mixin grid($template, $columnGap, $rowGap, $align-horiz:'', $align-vert: '') {
+	display: grid;
+	grid-template-columns: $template;
+	column-gap: $columnGap;
+	row-gap: $rowGap;
+
+	@if ($align-vert != '') {
+		align-items: $align-vert;
+	}
+
+	@if ($align-horiz != '') {
+		justify-content: $align-horiz;
+	}
+}
+
 @mixin col($property, $nbCol, $maxCol) {
 	#{$property}: calc(100% * math.div($nbCol, $maxCol));
 }
