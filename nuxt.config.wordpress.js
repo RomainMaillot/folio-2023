@@ -4,6 +4,8 @@ import gql from 'graphql-tag';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createHttpLink } from 'apollo-link-http';
+import Routes from './routes.json';
+import { sortRoutes } from '@nuxt/utils';
 
 export default {
 	// Global page headers: https://go.nuxtjs.dev/config-head

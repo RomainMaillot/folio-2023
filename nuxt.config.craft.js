@@ -1,3 +1,5 @@
+import Routes from './routes.json';
+import { sortRoutes } from '@nuxt/utils';
 export default {
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
@@ -22,11 +24,7 @@ export default {
 	css: ['~assets/sass/application.scss'],
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: [
-		{ src: '~/plugins/vue-plyr', mode: 'client' },
-		{ src: '~/plugins/animations.js', mode: 'client' },
-		{ src: '~/plugins/global.js' },
-	],
+	plugins: [{ src: '~/plugins/vue-plyr', mode: 'client' }, { src: '~/plugins/animations.js', mode: 'client' }, { src: '~/plugins/global.js' }],
 
 	components: [
 		{
@@ -45,13 +43,32 @@ export default {
 		id: 'GTM-XXXXXXX',
 	},
 
+	router: {
+		extendRoutes(routes, resolve) {
+			const templates = {
+				home: resolve(__dirname, 'pages-template/home'),
+				styleguide: resolve(__dirname, 'pages-template/styleGuide'),
+			};
+			routes = [];
+			Routes.forEach((r) => {
+				routes.push({
+					name: r.template + '.' + r.lang,
+					path: r.routes,
+					component: templates[r.template],
+					meta: {
+						name: r.template,
+						lang: r.lang,
+						slugApi: r.slugApi,
+					},
+				});
+			});
+			sortRoutes(routes);
+			return routes;
+		},
+	},
+
 	styleResources: {
-		scss: [
-			'./assets/sass/utils/media-queries.scss',
-			'./assets/sass/utils/style-guide-mixins.scss',
-			'./assets/sass/utils/easings.scss',
-			'./assets/sass/utils/tools.scss',
-		],
+		scss: ['./assets/sass/utils/media-queries.scss', './assets/sass/utils/style-guide-mixins.scss', './assets/sass/utils/easings.scss', './assets/sass/utils/tools.scss'],
 		hoistUseStatements: true,
 	},
 	apollo: {

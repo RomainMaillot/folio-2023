@@ -34,7 +34,7 @@ export default {
 	],
 
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-	buildModules: ['nuxt-webpack-optimisations', 'nuxt-lazysizes', '@nuxtjs/device', '@nuxtjs/dotenv'],
+	buildModules: ['nuxt-lazysizes', '@nuxtjs/device', '@nuxtjs/dotenv'],
 
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: ['@nuxtjs/style-resources', '@nuxtjs/gtm'],
@@ -70,14 +70,6 @@ export default {
 	styleResources: {
 		scss: ['./assets/sass/utils/media-queries.scss', './assets/sass/utils/style-guide-mixins.scss', './assets/sass/utils/easings.scss', './assets/sass/utils/tools.scss'],
 		hoistUseStatements: true,
-	},
-
-	webpackOptimisations: {
-		features: {
-			// enable risky optimisations in dev only
-			hardSourcePlugin: process.env.ENV == 'dev',
-			parallelPlugin: process.env.ENV == 'dev',
-		},
 	},
 
 	lazySizes: {
