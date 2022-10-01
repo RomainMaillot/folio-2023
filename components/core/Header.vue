@@ -47,6 +47,7 @@ export default {
 
 <style lang="scss">
 .header {
+	display: none;
 	--height: 80px;
 	--translate: -15px;
 	--ease: ease;

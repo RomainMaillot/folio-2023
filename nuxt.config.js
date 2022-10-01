@@ -3,7 +3,7 @@ import { sortRoutes } from '@nuxt/utils';
 export default {
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
-		title: 'AkuStack',
+		title: 'TemplateThree',
 		htmlAttrs: {
 			lang: 'en',
 		},

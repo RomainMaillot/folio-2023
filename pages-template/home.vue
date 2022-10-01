@@ -1,7 +1,7 @@
 <template>
 	<SmoothScroll>
 		<div class="homepage">
-			<Hero title="AkuStack" />
+			<Hero title="TemplateThree" />
 		</div>
 	</SmoothScroll>
 </template>
