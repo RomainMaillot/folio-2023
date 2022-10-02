@@ -33,7 +33,7 @@ export default class Workshop extends Core {
 		this.courtePointe = null
 
 		this.hoverables = new Array()
-		//this.lights = new SceneLights(this)
+		this.lights = new SceneLights(this)
 		this.raycastable = new Array()
 
 		this.material = null
@@ -148,10 +148,31 @@ export default class Workshop extends Core {
 		//this.workshop = AssetManager.get('workshop_baked').scene
 		// this.workshop.copy(AssetManager.get('workshop_baked_courte_2').scene)
 
-		const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-		const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-		const cube = new THREE.Mesh( geometry, material );
-		this.workshop.add(cube);
+		// const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+		// const material = new THREE.MeshBasicMaterial( { color: 0x00ffff } );
+		// const cube = new THREE.Mesh( geometry, material );
+		// this.workshop.add(cube);
+
+		var planeGeometry
+		// var texture = new THREE.TextureLoader().load( 'https://picsum.photos/200/300' );
+		const context = this
+		var texture = new THREE.TextureLoader().load( 'https://picsum.photos/200/300', function ( tex ) {
+			console.log( tex.image.width, tex.image.height );
+			const width = tex.image.width / 100
+			const height = tex.image.height / 100
+			// here you can create a plane based on width/height image linear proportion
+			planeGeometry = new THREE.PlaneGeometry(width, height, 1, 1);
+			var planeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
+			const plane = new THREE.Mesh( planeGeometry, planeMaterial );
+			const plane2 = new THREE.Mesh( planeGeometry, planeMaterial );
+			plane2.position.set(width + 0.1,0,0);
+			const plane3 = new THREE.Mesh( planeGeometry, planeMaterial );
+			plane3.position.set((width * 2) + 0.2,0,0);
+			context.workshop.add(plane);
+			context.workshop.add(plane2);
+			context.workshop.add(plane3);
+		} );
+
 
 		this.gui.general.addInput(this.workshop, 'visible', {
 			label: 'Workshop Visible'

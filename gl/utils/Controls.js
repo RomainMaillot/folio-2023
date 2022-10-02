@@ -13,7 +13,7 @@ export default class Controls extends OrbitControls {
 		this.listenToKeyEvents(window)
 		this.enabled = false
 		this.target = new THREE.Vector3(2, 0.5, -3)
-		this.cameraTarget = new THREE.Vector3(2, 0.5, -3)
+		this.cameraTarget = new THREE.Vector3(2, 0, -3)
 		this.progress = 0.5
 		this.targetSpeed = 0.0075
 		this.cameraTargetInterpolation = 0.05
@@ -21,7 +21,7 @@ export default class Controls extends OrbitControls {
 		this.cursorInterpolation = 0.08
 		this.free = false
 		this.gui = this.engine.gui
-		this.baseCameraPosition = new THREE.Vector3(2, 2.5, 9)
+		this.baseCameraPosition = new THREE.Vector3(2, 0, 9)
 		this.object.position.copy(this.baseCameraPosition)
 
 		this.camera = camera
@@ -31,8 +31,8 @@ export default class Controls extends OrbitControls {
 		this.easing = bezier(0.5, 0, 0.5, 1)
 
 		this.range = {
-			min: -4,
-			max: 4
+			min: -1,
+			max: 1
 		}
 		this.activeZone = {
 			min: 0.5,
@@ -181,15 +181,17 @@ export default class Controls extends OrbitControls {
 	}
 
 	lerpCamera() {
+		// base y = this.baseCameraPosition.y + this.pointerLerped.y / 8
+		// base x = this.target.x - this.pointerLerped.x / 2
 		const target = new THREE.Vector3(
 			THREE.MathUtils.mapLinear(
-				this.target.x - this.pointerLerped.x / 2,
-				this.baseCameraPosition.x + this.range.min,
-				this.baseCameraPosition.x + this.range.max,
-				this.baseCameraPosition.x + this.range.min + 3,
-				this.baseCameraPosition.x + this.range.max - 3
+				this.target.x - this.pointerLerped.x,
+				this.baseCameraPosition.x + (-4),
+				this.baseCameraPosition.x + 4,
+				this.baseCameraPosition.x + (-4) + 3,
+				this.baseCameraPosition.x + 4 - 3
 			),
-			this.baseCameraPosition.y + this.pointerLerped.y / 8,
+			this.baseCameraPosition.y + this.pointerLerped.y,
 			this.baseCameraPosition.z
 		)
 		this.camera.position.lerp(target, this.cameraInterpolation)

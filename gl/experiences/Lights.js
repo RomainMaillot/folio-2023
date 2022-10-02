@@ -41,7 +41,7 @@ export default class SceneLights {
 				this.ambientLight.color = new THREE.Color(_e.value.r / 255, _e.value.g / 255, _e.value.b / 255)
 			})
 		this.scene.add(this.ambientLight)
-		this.engine.post.hightlightPass.renderPass.selection.add(this.ambientLight)
+		// this.engine.post.hightlightPass.renderPass.selection.add(this.ambientLight)
 	}
 
 	createSpotlight() {
@@ -69,7 +69,7 @@ export default class SceneLights {
 		this.spotLight.target = target
 		this.scene.add(target)
 		this.scene.add(this.spotLight)
-		this.engine.post.hightlightPass.renderPass.selection.add(this.spotLight)
+		// this.engine.post.hightlightPass.renderPass.selection.add(this.spotLight)
 	}
 
 	createPointLights() {
@@ -86,6 +86,6 @@ export default class SceneLights {
 		)
 		this.sceneLight.position.set(-0.5, 1.6, 4)
 		this.scene.add(this.sceneLight)
-		this.engine.post.hightlightPass.renderPass.selection.add(this.sceneLight)
+		// this.engine.post.hightlightPass.renderPass.selection.add(this.sceneLight)
 	}
 }
