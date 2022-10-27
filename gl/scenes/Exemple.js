@@ -101,6 +101,7 @@ export default class ExampleScene extends Core {
 	onClick(_object) {
 		console.log(_object)
 		if (_object.name === 'TestCube') this.goTo('firstPov')
+		if (_object.name === 'Duck') this.goTo('secondPov')
 		// if (_object.name === 'Cylinder001') this.goTo('stars')
 		// if (_object.name === 'Basin-Base') this.goTo('water')
 	}
@@ -153,9 +154,12 @@ export default class ExampleScene extends Core {
 	}
 
 	async loadScene() {
-		await AssetManager.load([{ url: '/textures/img_horiz.jpg', key: 'img-horiz' }])
-		await AssetManager.load([{ url: '/textures/img_paysage.jpg', key: 'img-paysage' }])
-		await AssetManager.load([{ url: '/textures/img2_paysage.jpg', key: 'img-paysage2' }])
+		await AssetManager.load([
+			{ url: '/textures/img_horiz.jpg', key: 'img-horiz' },
+			{ url: '/textures/img_paysage.jpg', key: 'img-paysage' },
+			{ url: '/textures/img2_paysage.jpg', key: 'img-paysage2' },
+			{ url: '/models/duck.gltf', key: 'duck' }
+		])
 
 		this.textures = []
 		this.textures.push(new THREE.Texture(AssetManager.get('img-horiz').image))
@@ -167,7 +171,16 @@ export default class ExampleScene extends Core {
 		this.hoverables.push(
 			(this.planes = new Hoverable(this, 'planes')),
 			(this.cube = new Hoverable(this, 'cube')),
+			(this.duck = new Hoverable(this, 'duck')),
 		)
+
+		// Add gltf object to scene
+		this.gltfObject = AssetManager.get('duck').scene
+		this.gltfObject.position.set(-10, -1, -10);
+		this.gltfObject.rotation.set(0, 1, 0);
+		this.gltfObject.name = "Duck";
+		this.duck.add(this.gltfObject);
+		this.groupExample.add(this.gltfObject);
 
 		const geometry = new THREE.BoxGeometry( 2, 2, 2 );
 		const uniforms = {
