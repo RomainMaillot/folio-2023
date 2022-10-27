@@ -95,17 +95,22 @@ export default {
 			(config.node = {
 				fs: 'empty'
 			}),
-			(loaders.scss.additionalData = '@use "sass:math";'),
-			config.module.rules.push({
-				test: /\.(glsl|vs|fs)$/,
-				use: [{ loader: 'raw-loader' }, { loader: 'glslify-loader' }]
-			})
-
+			(loaders.scss.additionalData = '@use "sass:math";')
 		},
 		extend(config, ctx) {
 			config.node = {
 				fs: 'empty',
 			};
+			if (config.module) {
+			  config.module.rules.push({
+				test: /\.(glsl|vs|fs|vert|frag)$/,
+				exclude: /node_modules/,
+				use: [
+					'raw-loader',
+					'glslify-loader'
+				]
+			  })
+			}
 		},
 		transpile: ['gsap', 'three'],
 		loaders: {

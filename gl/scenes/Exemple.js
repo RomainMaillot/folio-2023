@@ -13,6 +13,8 @@ import SceneLights from './Lights'
 // import Debug from './Debug'
 import Hoverable from './Hoverable'
 // import CourtePointe from './CourtePointe'
+import vertexExample from '~/gl/shaders/vertexExample.glsl'
+import fragmentExample from '~/gl/shaders/fragmentExample.glsl'
 import { getGPUTier } from 'detect-gpu'
 
 export default class ExampleScene extends Core {
@@ -139,6 +141,11 @@ export default class ExampleScene extends Core {
 			this.renderer.autoClear = true
 		}
 
+		// Update shader uniforms
+		if(this.cubeMesh) {
+			this.cubeMesh.material.uniforms.u_time.value = this.time * 0.01
+		}
+
 		if (this.controls) {
 			this.controls.updateControls()
 		}
@@ -163,12 +170,21 @@ export default class ExampleScene extends Core {
 		)
 
 		const geometry = new THREE.BoxGeometry( 2, 2, 2 );
-		const material = new THREE.MeshBasicMaterial( { color: 0x00ffff } );
-		const cube = new THREE.Mesh( geometry, material );
-		cube.name = "TestCube"
-		cube.position.set(-5, 0, -4);
-		this.cube.add(cube)
-		this.groupExample.add(cube);
+		const uniforms = {
+			u_time: { value: 1.0 },
+			u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
+		}
+		// const material = new THREE.MeshBasicMaterial( { color: 0x00ffff } );
+		const material = new THREE.ShaderMaterial({
+			uniforms,
+			vertexShader: vertexExample,
+			fragmentShader: fragmentExample
+		});
+		this.cubeMesh = new THREE.Mesh( geometry, material );
+		this.cubeMesh.name = "TestCube"
+		this.cubeMesh.position.set(-5, 0, -4);
+		this.cube.add(this.cubeMesh)
+		this.groupExample.add(this.cubeMesh);
 
 
 		// Create plane from texture so the plane is adapted to texture ratio
