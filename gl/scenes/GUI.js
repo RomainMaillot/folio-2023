@@ -46,16 +46,6 @@ export default class GUI extends Interface {
 			expanded: false
 		})
 
-		this.dust = this.pane.addFolder({
-			title: 'Dust',
-			expanded: false
-		})
-
-		this.godray = this.pane.addFolder({
-			title: 'GodRay',
-			expanded: false
-		})
-
 		this.navigator = this.pane.addFolder({
 			title: 'Navigation',
 			expanded: false
