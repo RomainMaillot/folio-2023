@@ -14,7 +14,7 @@ export default class GUI extends Interface {
 		this.currentPreset = ''
 
 		this.pane = new Pane({
-			title: 'TBD | Workshop',
+			title: '3D Template',
 			expanded: true,
 			hidden: true
 		})

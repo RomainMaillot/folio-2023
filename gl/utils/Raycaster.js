@@ -68,13 +68,13 @@ export default class Raycaster extends Interface {
 		}
 
 		if (intersects.length && !this.engine.controls.navigator.navigating) {
-			this.engine.post.hightlightPass?.hide()
+			this.engine?.post?.hightlightPass?.hide()
 			this.hoverable.forEach((element) => {
 				if (element === intersects[0].object) {
 					intersects[0].object.hover()
 				} // this.engine.post.hightlightPass.hover(intersects[0].object)
 			})
-		} else if (intersects.length) this.engine.post.hightlightPass.hide()
+		} else if (intersects.length) this.engine?.post?.hightlightPass.hide()
 	}
 
 	ray() {

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Exemple from '~/gl/experiences/Exemple'
+import Exemple from '~/gl/scenes/Exemple'
 export default {
 	data() {
 		return {
@@ -27,16 +27,16 @@ export default {
 		title: String,
 	},
 	mounted() {
-		this.workshop = new Exemple()
+		this.scene = new Exemple()
 
-		this.state = this.workshop.state
+		this.state = this.scene.state
 
 		console.log(this.state)
 
-		this.workshop.init(this.$refs.parent)
+		this.scene.init(this.$refs.parent)
 
-		this.workshop.$on('Navigation', this.onNavigation)
-		this.workshop.$on('loaded', this.onLoaded)
+		this.scene.$on('Navigation', this.onNavigation)
+		this.scene.$on('loaded', this.onLoaded)
 
 		setTimeout(() => {
 			this.loaded = true
@@ -45,18 +45,18 @@ export default {
 		this.$nuxt.$on('transition-after-leave', this.onLeave)
 	},
 	beforeDestroy() {
-		//this.workshop?.destroy()
+		//this.scene?.destroy()
 		setTimeout(() => {
-			this.workshop?.destroy()
+			this.scene?.destroy()
 		}, 2000)
-		this.workshop.$off('Navigation', this.onNavigation)
-		this.workshop.$off('loaded', this.onLoaded)
+		this.scene.$off('Navigation', this.onNavigation)
+		this.scene.$off('loaded', this.onLoaded)
 		//this.$nuxt.$off('ciao', this.onLeave)
 	},
 	methods: {
 		onLeave() {
-			this.workshop?.destroy()
-			this.workshop = null
+			this.scene?.destroy()
+			this.scene = null
 		},
 		onLoaded() {
 			console.log('loaded')
@@ -70,7 +70,7 @@ export default {
 			// if (_direction === 'courte-pointe') this.$router.push(this.localeLocation('/courte-pointe'))
 		},
 		resetView() {
-			this.workshop.reset()
+			this.scene.reset()
 		}
 	}
 

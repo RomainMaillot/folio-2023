@@ -11,11 +11,11 @@ import SceneLights from './Lights'
 // import Water from './Water'
 // import GodRay from './GodRay'
 // import Debug from './Debug'
-// import Hoverable from './Hoverable'
+import Hoverable from './Hoverable'
 // import CourtePointe from './CourtePointe'
 import { getGPUTier } from 'detect-gpu'
 
-export default class Workshop extends Core {
+export default class ExampleScene extends Core {
 	constructor(opt = {}) {
 		super()
 		if (!process.client) return
@@ -25,7 +25,7 @@ export default class Workshop extends Core {
 		this.state = {
 			navigating: false
 		}
-		this.workshop = new THREE.Group()
+		this.groupExample = new THREE.Group()
 		// this.post = new PostProcessing(this)
 		// this.texturer = new Texturer(this)
 		this.controls = new Controls(this, this.camera, this.renderer?.domElement, this.gui)
@@ -53,7 +53,7 @@ export default class Workshop extends Core {
 
 	init(parent) {
 		super.init(parent)
-		this.loadWorkshop()
+		this.loadScene()
 		this.setupCamera()
 		// this.dust = new Dust(this)
 		//this.godRay = new GodRay(this)
@@ -64,12 +64,12 @@ export default class Workshop extends Core {
 		if (this.isDestroyed) return
 		super.destroy()
 
-		// this.hoverables.forEach((_el) => {
-		// 	_el.destroy()
-		// })
-		// this.hoverables = new Array()
+		this.hoverables.forEach((_el) => {
+			_el.destroy()
+		})
+		this.hoverables = new Array()
 
-		this.post.destroy()
+		// this.post.destroy()
 		this.gui.destroy()
 		// this.dust?.destroy()
 		// this.godRay?.destroy()
@@ -97,6 +97,7 @@ export default class Workshop extends Core {
 	}
 
 	onClick(_object) {
+		console.log(_object)
 		// if (_object.name === 'Cylinder001') this.goTo('stars')
 		// if (_object.name === 'Basin-Base') this.goTo('water')
 	}
@@ -111,7 +112,7 @@ export default class Workshop extends Core {
 	reset() {
 		this.controls.navigator.reset(() => {
 			this.state.navigating = false
-			this.post.setTargetDOF(this.raycaster.helper.position)
+			// this.post.setTargetDOF(this.raycaster.helper.position)
 		})
 	}
 
@@ -143,18 +144,23 @@ export default class Workshop extends Core {
 		this.stats.end()
 	}
 
-	async loadWorkshop() {
-		// await AssetManager.load([{ url: '/models/workshop_baked_courte_pointe.glb', key: 'workshop_baked_courte_2' }])
-		//this.workshop = AssetManager.get('workshop_baked').scene
-		// this.workshop.copy(AssetManager.get('workshop_baked_courte_2').scene)
+	async loadScene() {
+		// await AssetManager.load([{ url: 'https://picsum.photos/200/300', key: 'imageTexture' }])
+		//this.groupExample = AssetManager.get('groupExample_baked').scene
+		// this.groupExample.copy(AssetManager.get('groupExample_baked_courte_2').scene)
 
 		// const geometry = new THREE.BoxGeometry( 1, 1, 1 );
 		// const material = new THREE.MeshBasicMaterial( { color: 0x00ffff } );
 		// const cube = new THREE.Mesh( geometry, material );
-		// this.workshop.add(cube);
+		// this.groupExample.add(cube);
+
+		this.hoverables = new Array()
+
+		this.hoverables.push(
+			(this.planes = new Hoverable(this, 'planes')),
+		)
 
 		var planeGeometry
-		// var texture = new THREE.TextureLoader().load( 'https://picsum.photos/200/300' );
 		const context = this
 		var texture = new THREE.TextureLoader().load( 'https://picsum.photos/200/300', function ( tex ) {
 			console.log( tex.image.width, tex.image.height );
@@ -168,63 +174,20 @@ export default class Workshop extends Core {
 			plane2.position.set(width + 0.1,0,0);
 			const plane3 = new THREE.Mesh( planeGeometry, planeMaterial );
 			plane3.position.set((width * 2) + 0.2,0,0);
-			context.workshop.add(plane);
-			context.workshop.add(plane2);
-			context.workshop.add(plane3);
+			context.planes.add(plane)
+			context.planes.add(plane2)
+			context.planes.add(plane3)
+			context.groupExample.add(plane);
+			context.groupExample.add(plane2);
+			context.groupExample.add(plane3);
+
 		} );
 
-
-		this.gui.general.addInput(this.workshop, 'visible', {
-			label: 'Workshop Visible'
+		this.gui.general.addInput(this.groupExample, 'visible', {
+			label: 'groupExample Visible'
 		})
 
-		console.log('ah shzt')
-		this.hoverables = new Array()
-
-		// this.hoverables.push(
-		// 	(this.pictures = new Hoverable(this, 'picture', false)),
-		// 	(this.lamp = new Hoverable(this, 'shadows')),
-		// 	(this.emboidery = new Hoverable(this, 'broderie')),
-		// 	(this.telescope = new Hoverable(this, 'stars')),
-		// 	(this.basin = new Hoverable(this, 'water')),
-		// 	(this.hoverCourtePointe = new Hoverable(this, 'courte-pointe'))
-		// )
-
-		// this.telescope.$on('click', this.goTo, this)
-
-		// this.basin.$on('click', this.goTo, this)
-
-		// this.lamp.$on('click', this.goTo, this)
-
-		// this.emboidery.$on('click', this.goTo, this)
-
-		// this.pictures.$on('click', this.goTo, this)
-
-		// this.hoverCourtePointe.$on('click', this.goTo, this)
-
-		// this.workshop.children.forEach((element) => {
-		// 	//console.log(element.userData)
-		// 	if (element.userData.type === 'courte-pointe') {
-		// 		this.courtePointe = new CourtePointe(element, this.gui.courtePointe)
-		// 		this.hoverCourtePointe.add(element)
-		// 	}
-		// 	if (element.material.map && !this.renderer.capabilities.isWebGL2) element.material.map.encoding = THREE.LinearEncoding
-		// 	if (element.name === 'BK_Basin-Water') {
-		// 		this.water = new Water(this, element)
-		// 		this.basin.add(this.water.mesh)
-		// 	}
-		// 	if (element.userData.Type === 'Godray') this.godRay = new GodRay(this, element)
-		// 	else this.raycastable.push(element)
-		// 	if (element.name.includes('BK_Picture')) this.pictures.add(element)
-		// 	else if (element.userData.Type === 'Lamp') this.lamp.add(element)
-		// 	else if (element.userData.Type === 'Emboidery') this.emboidery.add(element)
-		// 	else if (element.userData.Type === 'Telescope') this.telescope.add(element)
-		// 	else if (element.userData.Type === 'Basin') this.basin.add(element)
-
-		// 	//if (element.userData.Type) console.log(element.userData.Type)
-		// })
-
-		this.scene.add(this.workshop)
+		this.scene.add(this.groupExample)
 		this.$emit('loaded')
 	}
 }

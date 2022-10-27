@@ -32,9 +32,9 @@ export default class Navigator {
 
 		this.setupGUI()
 
-		this.stars = new Path({
-			name: 'Stars',
-			navigation: 'stars',
+		this.firstPov = new Path({
+			name: 'FirstPov',
+			navigation: 'firstPov',
 			scene: this.scene,
 			start: new THREE.Vector3(2, 2.5, 8.5),
 			middle: new THREE.Vector3(3.05, 1.3, 5.35),
@@ -42,53 +42,13 @@ export default class Navigator {
 			gui: this.gui
 		})
 
-		this.water = new Path({
-			name: 'Water',
-			navigation: 'water',
+		this.secondPov = new Path({
+			name: 'SecondPov',
+			navigation: 'secondPov',
 			scene: this.scene,
 			start: new THREE.Vector3(2, 2.5, 8.5),
 			middle: new THREE.Vector3(0, 2.4, 4.95),
 			end: new THREE.Vector3(-2.6, 0.2, 4.15),
-			gui: this.gui
-		})
-
-		this.paintings = new Path({
-			name: 'Paintings',
-			duration: 3,
-			scene: this.scene,
-			start: new THREE.Vector3(2, 2.5, 8.5),
-			middle: new THREE.Vector3(2, 2.5, -0.7),
-			end: new THREE.Vector3(-1.5, 2.5, -0.7),
-			gui: this.gui
-		})
-
-		this.shadows = new Path({
-			name: 'Shadows',
-			navigation: 'shadows',
-			scene: this.scene,
-			start: new THREE.Vector3(2, 2.5, 8.5),
-			middle: new THREE.Vector3(1.7, 1.5, 4),
-			end: new THREE.Vector3(1.5, 2, 0),
-			gui: this.gui
-		})
-
-		this.courtePointe = new Path({
-			name: 'CourtePointe',
-			navigation: 'courte-pointe',
-			scene: this.scene,
-			start: new THREE.Vector3(2, 2.5, 8.5),
-			middle: new THREE.Vector3(1.7, 1.5, 4),
-			end: new THREE.Vector3(2.8, 1.5, 0),
-			gui: this.gui
-		})
-
-		this.broderie = new Path({
-			name: 'Broderie',
-			navigation: 'broderie',
-			scene: this.scene,
-			start: new THREE.Vector3(2, 2.5, 8.5),
-			middle: new THREE.Vector3(2.4, 2.5, 7.5),
-			end: new THREE.Vector3(2.8, 1.5, 6.3),
 			gui: this.gui
 		})
 
@@ -103,23 +63,11 @@ export default class Navigator {
 			min: 0,
 			max: 1
 		})
-		this.gui.navigator.addButton({ title: 'Set path stars' }).on('click', () => {
-			this.path = this.stars
+		this.gui.navigator.addButton({ title: 'Set path firstPov' }).on('click', () => {
+			this.path = this.firstPov
 		})
-		this.gui.navigator.addButton({ title: 'Set path water' }).on('click', () => {
-			this.path = this.water
-		})
-		this.gui.navigator.addButton({ title: 'Set path paintings' }).on('click', () => {
-			this.path = this.paintings
-		})
-		this.gui.navigator.addButton({ title: 'Set path shad' }).on('click', () => {
-			this.path = this.shadows
-		})
-		this.gui.navigator.addButton({ title: 'Set path brod' }).on('click', () => {
-			this.path = this.broderie
-		})
-		this.gui.navigator.addButton({ title: 'Set path courte' }).on('click', () => {
-			this.path = this.courtePointe
+		this.gui.navigator.addButton({ title: 'Set path secondPov' }).on('click', () => {
+			this.path = this.secondPov
 		})
 	}
 
@@ -145,15 +93,11 @@ export default class Navigator {
 		this.controlsTarget.lerp(this.target.raw, 0.1)
 	}
 
-	goTo(direction = 'stars') {
+	goTo(direction = 'firstPov') {
 		this.enabled = true
 
-		if (direction === 'stars') this.path = this.stars
-		if (direction === 'water') this.path = this.water
-		if (direction === 'picture') this.path = this.paintings
-		if (direction === 'shadows') this.path = this.shadows
-		if (direction === 'broderie') this.path = this.broderie
-		if (direction === 'courte-pointe') this.path = this.courtePointe
+		if (direction === 'firstPov') this.path = this.firstPov
+		if (direction === 'secondPov') this.path = this.secondPov
 
 		this.engine.post.setTargetDOF(this.path.end)
 

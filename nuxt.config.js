@@ -85,20 +85,29 @@ export default {
 	build: {
 		// fix to work with swiperjs 8 - need to run with standalone:true. That can make some troubles.
 		standalone: true,
-		extend(config, ctx) {
+		extend(config, {loaders}) {
 			// fix to work with swiperjs 8 add needed deps. you can get them from error when doing nuxt generate
 			config.externals = [
 				{
 					encoding: 'encoding',
 				},
 			];
+			(config.node = {
+				fs: 'empty'
+			}),
+			(loaders.scss.additionalData = '@use "sass:math";'),
+			config.module.rules.push({
+				test: /\.(glsl|vs|fs)$/,
+				use: [{ loader: 'raw-loader' }, { loader: 'glslify-loader' }]
+			})
+
 		},
 		extend(config, ctx) {
 			config.node = {
 				fs: 'empty',
 			};
 		},
-		transpile: ['gsap'],
+		transpile: ['gsap', 'three'],
 		loaders: {
 			sass: {
 				implementation: require('sass'),
