@@ -38,9 +38,9 @@ export default {
 		this.scene.$on('Navigation', this.onNavigation)
 		this.scene.$on('loaded', this.onLoaded)
 
-		setTimeout(() => {
-			this.loaded = true
-		}, 1000);
+		// setTimeout(() => {
+		// 	this.loaded = true
+		// }, 1000);
 
 		this.$nuxt.$on('transition-after-leave', this.onLeave)
 	},

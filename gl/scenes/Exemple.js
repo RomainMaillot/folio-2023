@@ -2,7 +2,7 @@ import Core from '~/gl/Core'
 import AssetManager from '~/gl/utils/AssetManager'
 import Controls from '~/gl/utils/Controls'
 import * as THREE from 'three'
-// import PostProcessing from '~/gl/postprocessing'
+import PostProcessing from '~/gl/postprocessing'
 import GUI from './GUI'
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls.js'
 import SceneLights from './Lights'
@@ -26,7 +26,7 @@ export default class ExampleScene extends Core {
 			navigating: false
 		}
 		this.groupExample = new THREE.Group()
-		// this.post = new PostProcessing(this)
+		this.post = new PostProcessing(this)
 		// this.texturer = new Texturer(this)
 		this.controls = new Controls(this, this.camera, this.renderer?.domElement, this.gui)
 		this.transformer = new TransformControls(this.camera, this.renderer?.domElement)
@@ -42,19 +42,19 @@ export default class ExampleScene extends Core {
 		})
 
 		this.$on('Click::Raycaster', this.onClick, this)
-		// this.post.$on(
-		// 	'loaded',
-		// 	() => {
-		// 		this.setupCamera()
-		// 	},
-		// 	this
-		// )
+		this.post.$on(
+			'loaded',
+			() => {
+				this.setupCamera()
+			},
+			this
+		)
 	}
 
 	init(parent) {
 		super.init(parent)
 		this.loadScene()
-		this.setupCamera()
+		// this.setupCamera()
 		// this.dust = new Dust(this)
 		//this.godRay = new GodRay(this)
 		// this.debug = new Debug(this)
@@ -69,7 +69,7 @@ export default class ExampleScene extends Core {
 		})
 		this.hoverables = new Array()
 
-		// this.post.destroy()
+		this.post.destroy()
 		this.gui.destroy()
 		// this.dust?.destroy()
 		// this.godRay?.destroy()
@@ -98,6 +98,7 @@ export default class ExampleScene extends Core {
 
 	onClick(_object) {
 		console.log(_object)
+		if (_object.name === 'TestCube') this.goTo('firstPov')
 		// if (_object.name === 'Cylinder001') this.goTo('stars')
 		// if (_object.name === 'Basin-Base') this.goTo('water')
 	}
@@ -112,14 +113,14 @@ export default class ExampleScene extends Core {
 	reset() {
 		this.controls.navigator.reset(() => {
 			this.state.navigating = false
-			// this.post.setTargetDOF(this.raycaster.helper.position)
+			this.post.setTargetDOF(this.raycaster.helper.position)
 		})
 	}
 
 	setupCamera() {
 		this.scene.add(this.camera)
 		this.setupCameraGUI()
-		// this.post.setTargetDOF(this.raycaster.helper.position)
+		this.post.setTargetDOF(this.raycaster.helper.position)
 	}
 
 	update(_time, _delta) {
@@ -129,14 +130,14 @@ export default class ExampleScene extends Core {
 		// this.dust?.update()
 		// this.godRay?.update()
 		// this.water?.update(_delta)
-		// this.post?.update()
-		// if (this.post?.enabled) {
-		// 	this.post.composer?.render()
-		// 	this.renderer.autoClear = false
-		// } else {
+		this.post?.update()
+		if (this.post?.enabled) {
+			this.post.composer?.render()
+			this.renderer.autoClear = false
+		} else {
 			this.renderer.render(this.scene, this.camera)
 			this.renderer.autoClear = true
-		// }
+		}
 
 		if (this.controls) {
 			this.controls.updateControls()
@@ -145,43 +146,53 @@ export default class ExampleScene extends Core {
 	}
 
 	async loadScene() {
-		// await AssetManager.load([{ url: 'https://picsum.photos/200/300', key: 'imageTexture' }])
-		//this.groupExample = AssetManager.get('groupExample_baked').scene
-		// this.groupExample.copy(AssetManager.get('groupExample_baked_courte_2').scene)
+		await AssetManager.load([{ url: '/textures/img_horiz.jpg', key: 'img-horiz' }])
+		await AssetManager.load([{ url: '/textures/img_paysage.jpg', key: 'img-paysage' }])
+		await AssetManager.load([{ url: '/textures/img2_paysage.jpg', key: 'img-paysage2' }])
 
-		// const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-		// const material = new THREE.MeshBasicMaterial( { color: 0x00ffff } );
-		// const cube = new THREE.Mesh( geometry, material );
-		// this.groupExample.add(cube);
+		this.textures = []
+		this.textures.push(new THREE.Texture(AssetManager.get('img-horiz').image))
+		this.textures.push(new THREE.Texture(AssetManager.get('img-paysage').image))
+		this.textures.push(new THREE.Texture(AssetManager.get('img-paysage2').image))
 
 		this.hoverables = new Array()
 
 		this.hoverables.push(
 			(this.planes = new Hoverable(this, 'planes')),
+			(this.cube = new Hoverable(this, 'cube')),
 		)
 
-		var planeGeometry
-		const context = this
-		var texture = new THREE.TextureLoader().load( 'https://picsum.photos/200/300', function ( tex ) {
-			console.log( tex.image.width, tex.image.height );
-			const width = tex.image.width / 100
-			const height = tex.image.height / 100
+		const geometry = new THREE.BoxGeometry( 2, 2, 2 );
+		const material = new THREE.MeshBasicMaterial( { color: 0x00ffff } );
+		const cube = new THREE.Mesh( geometry, material );
+		cube.name = "TestCube"
+		cube.position.set(-5, 0, -4);
+		this.cube.add(cube)
+		this.groupExample.add(cube);
+
+
+		// Create plane from texture so the plane is adapted to texture ratio
+		this.textures.forEach((texture, index) => {
+			let offsetX = 0
+			// Calc offset x so texture doesn't overflows
+			for(let i = 0; i < index + 1; i++) {
+				if(i > 0) {
+					offsetX += this.textures[i].image.width / 1300
+				}
+			}
+			offsetX = index > 0 ? offsetX + 0.2 : offsetX;
+			texture.needsUpdate = true
+			const width = texture.image.width / 1300; // /big number is just to have it little because i took really big texture :)
+			const height = texture.image.height / 1300; // /big number is just to have it little because i took really big texture :)
 			// here you can create a plane based on width/height image linear proportion
-			planeGeometry = new THREE.PlaneGeometry(width, height, 1, 1);
+			var planeGeometry = new THREE.PlaneGeometry(width, height, 1, 1);
 			var planeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
 			const plane = new THREE.Mesh( planeGeometry, planeMaterial );
-			const plane2 = new THREE.Mesh( planeGeometry, planeMaterial );
-			plane2.position.set(width + 0.1,0,0);
-			const plane3 = new THREE.Mesh( planeGeometry, planeMaterial );
-			plane3.position.set((width * 2) + 0.2,0,0);
-			context.planes.add(plane)
-			context.planes.add(plane2)
-			context.planes.add(plane3)
-			context.groupExample.add(plane);
-			context.groupExample.add(plane2);
-			context.groupExample.add(plane3);
+			plane.position.set(offsetX,0,0);
+			this.planes.add(plane)
+			this.groupExample.add(plane);
+		});
 
-		} );
 
 		this.gui.general.addInput(this.groupExample, 'visible', {
 			label: 'groupExample Visible'

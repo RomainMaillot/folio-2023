@@ -37,8 +37,10 @@ export default class Navigator {
 			navigation: 'firstPov',
 			scene: this.scene,
 			start: new THREE.Vector3(2, 2.5, 8.5),
-			middle: new THREE.Vector3(3.05, 1.3, 5.35),
-			end: new THREE.Vector3(4.8, 1.62, 4.75),
+			// middle: new THREE.Vector3(3.05, 1.3, 5.35),
+			// end: new THREE.Vector3(-11.3, -0.8, -6.8),
+			middle: new THREE.Vector3(-11.2, 1.3, 30.4),
+			end: new THREE.Vector3(-6.3, -0.2, -1.4),
 			gui: this.gui
 		})
 
@@ -99,7 +101,7 @@ export default class Navigator {
 		if (direction === 'firstPov') this.path = this.firstPov
 		if (direction === 'secondPov') this.path = this.secondPov
 
-		this.engine.post.setTargetDOF(this.path.end)
+		this.engine?.post?.setTargetDOF(this.path.end)
 
 		gsap.to(this.progress, {
 			duration: this.path.duration,
@@ -112,7 +114,7 @@ export default class Navigator {
 				if (this.progress.lerped > 0.8 && !this.navigated && this.path.navigation) this.navigate(this.path.navigation)
 			},
 			onComplete: () => {
-				//this.navigating = false
+				// this.navigating = false
 			}
 		})
 	}
