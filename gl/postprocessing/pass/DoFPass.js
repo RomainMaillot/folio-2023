@@ -41,12 +41,9 @@ export default class DoFPass {
 		this.DOFEffectFolder.addInput(this.raycaster.helper, 'visible', {
 			presetKey: 'dof_helper'
 		})
-
-		if (this.gpu.tier > 2) this.DOFPass.enabled = true
-		else this.DOFPass.enabled = false
-
-		if (this.gpu.tier > 1) this.depthBufferPass.enabled = true
-		else this.depthBufferPass.enabled = false
+		
+		this.DOFPass.enabled = false
+		this.depthBufferPass.enabled = false
 	}
 
 	addPass() {

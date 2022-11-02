@@ -6,15 +6,8 @@ import PostProcessing from '~/gl/postprocessing';
 import GUI from './GUI';
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls.js';
 import SceneLights from './Lights';
-// import Texturer from '~/gl/utils/Texturer'
-// import Dust from './Dust'
-// import Water from './Water'
-// import GodRay from './GodRay'
-// import Debug from './Debug'
-import Hoverable from './Hoverable';
 import vertexExample from '~/gl/shaders/vertexExample.glsl';
 import fragmentExample from '~/gl/shaders/fragmentExample.glsl';
-import { getGPUTier } from 'detect-gpu';
 
 export default class ExampleScene extends Core {
 	constructor(opt = {}) {
@@ -23,25 +16,18 @@ export default class ExampleScene extends Core {
 		this.gui = new GUI(this);
 		this.isDestroyed = false;
 		this.time = 0;
-		this.state = {
-			navigating: false,
-		};
 		this.groupExample = new THREE.Group();
+
 		this.post = new PostProcessing(this);
-		// this.texturer = new Texturer(this)
 		this.controls = new Controls(this, this.camera, this.renderer?.domElement, this.gui);
 		this.transformer = new TransformControls(this.camera, this.renderer?.domElement);
-
-		this.hoverables = new Array();
 		this.lights = new SceneLights(this);
-		this.raycastable = new Array();
 
 		this.material = null;
 		this.transformer.addEventListener('dragging-changed', (event) => {
 			this.controls.enabled = !event.value;
 		});
 
-		this.$on('Click::Raycaster', this.onClick, this);
 		this.post.$on(
 			'loaded',
 			() => {
@@ -54,27 +40,14 @@ export default class ExampleScene extends Core {
 	init(parent) {
 		super.init(parent);
 		this.loadScene();
-		// this.setupCamera()
-		// this.dust = new Dust(this)
-		//this.godRay = new GodRay(this)
-		// this.debug = new Debug(this)
 	}
 
 	destroy() {
 		if (this.isDestroyed) return;
 		super.destroy();
 
-		this.hoverables.forEach((_el) => {
-			_el.destroy();
-		});
-		this.hoverables = new Array();
-
 		this.post.destroy();
 		this.gui.destroy();
-		// this.dust?.destroy()
-		// this.godRay?.destroy()
-
-		this.$off('Click::Raycaster', this.onClick, this);
 
 		this.isDestroyed = true;
 	}
@@ -96,29 +69,8 @@ export default class ExampleScene extends Core {
 		});
 	}
 
-	onClick(_object) {
-		console.log(_object);
-		if (_object.name === 'TestCube') this.goTo('firstPov');
-		if (_object.name === 'Duck') this.goTo('secondPov');
-		// if (_object.name === 'Cylinder001') this.goTo('stars')
-		// if (_object.name === 'Basin-Base') this.goTo('water')
-	}
-
-	goTo(_e) {
-		if (this.controls.free) return;
-
-		this.state.navigating = !_e.redirect;
-		this.controls.navigator.goTo(_e.direction);
-	}
-
-	reset() {
-		this.controls.navigator.reset(() => {
-			this.state.navigating = false;
-			this.post.setTargetDOF(this.raycaster.helper.position);
-		});
-	}
-
 	setupCamera() {
+		this.camera.position.z = 10;
 		this.scene.add(this.camera);
 		this.setupCameraGUI();
 		this.post.setTargetDOF(this.raycaster.helper.position);
@@ -128,10 +80,9 @@ export default class ExampleScene extends Core {
 		super.update(_time, _delta);
 		this.time++;
 		this.stats.begin();
-		// this.dust?.update()
-		// this.godRay?.update()
-		// this.water?.update(_delta)
 		this.post?.update();
+		this.controls?.update();
+
 		if (this.post?.enabled) {
 			this.post.composer?.render();
 			this.renderer.autoClear = false;
@@ -145,9 +96,6 @@ export default class ExampleScene extends Core {
 			this.cubeMesh.material.uniforms.u_time.value = this.time * 0.01;
 		}
 
-		if (this.controls) {
-			this.controls.updateControls();
-		}
 		this.stats.end();
 	}
 
@@ -164,16 +112,11 @@ export default class ExampleScene extends Core {
 		this.textures.push(new THREE.Texture(AssetManager.get('img-paysage').image));
 		this.textures.push(new THREE.Texture(AssetManager.get('img-paysage2').image));
 
-		this.hoverables = new Array();
-
-		this.hoverables.push((this.planes = new Hoverable(this, 'planes')), (this.cube = new Hoverable(this, 'cube')), (this.duck = new Hoverable(this, 'duck')));
-
 		// Add gltf object to scene
 		this.gltfObject = AssetManager.get('duck').scene;
 		this.gltfObject.position.set(-10, -1, -10);
 		this.gltfObject.rotation.set(0, 1, 0);
 		this.gltfObject.name = 'Duck';
-		this.duck.add(this.gltfObject);
 		this.groupExample.add(this.gltfObject);
 
 		const geometry = new THREE.BoxGeometry(2, 2, 2);
@@ -190,7 +133,6 @@ export default class ExampleScene extends Core {
 		this.cubeMesh = new THREE.Mesh(geometry, material);
 		this.cubeMesh.name = 'TestCube';
 		this.cubeMesh.position.set(-5, 0, -4);
-		this.cube.add(this.cubeMesh);
 		this.groupExample.add(this.cubeMesh);
 
 		// Create plane from texture so the plane is adapted to texture ratio
@@ -211,7 +153,8 @@ export default class ExampleScene extends Core {
 			var planeMaterial = new THREE.MeshLambertMaterial({ map: texture });
 			const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 			plane.position.set(offsetX, 0, 0);
-			this.planes.add(plane);
+			this.raycaster.raycastables.push(plane);
+			this.raycaster.clickables.push(plane);
 			this.groupExample.add(plane);
 		});
 
