@@ -28,6 +28,9 @@ export default class ExampleScene extends Core {
 			this.controls.enabled = !event.value;
 		});
 
+		// Events
+		this._onScroll = this.onScroll.bind(this);
+
 		this.post.$on(
 			'loaded',
 			() => {
@@ -39,13 +42,21 @@ export default class ExampleScene extends Core {
 
 	init(parent) {
 		super.init(parent);
+		window.addEventListener('wheel', this._onScroll);
 		this.loadScene();
+	}
+
+	onScroll(event) {
+		console.log('scroll', event);
+		const lerpedValue = THREE.MathUtils.lerp(this.sphereGroup.rotation.x, this.sphereGroup.rotation.x + 0.0005 * event.deltaY, 0.3);
+		this.sphereGroup.rotation.x = lerpedValue;
 	}
 
 	destroy() {
 		if (this.isDestroyed) return;
 		super.destroy();
 
+		window.removeEventListener('wheel', this._onScroll);
 		this.post.destroy();
 		this.gui.destroy();
 
@@ -135,6 +146,80 @@ export default class ExampleScene extends Core {
 		this.cubeMesh.position.set(-5, 0, -4);
 		this.groupExample.add(this.cubeMesh);
 
+		// Create floor
+		// var floorGeometry = new THREE.PlaneGeometry(100, 100, 1, 1);
+		// var floorMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+		// const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+		// floor.position.set(0, -1.2, 0);
+		// floor.rotation.x = -1.55;
+		// this.groupExample.add(floor);
+		// // Floor GUI
+		// this.gui.floor = this.gui.pane.addFolder({
+		// 	title: 'Floor',
+		// 	expanded: false,
+		// });
+		// this.gui.floor.addInput(floor, 'rotation');
+		// this.gui.floor.addInput(floor, 'position');
+
+		// Create big sphere
+		const sphereGeometry = new THREE.SphereGeometry(25, 32, 16);
+		const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true });
+		const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+		sphere.material.side = THREE.DoubleSide;
+		sphere.position.set(-2, 0, 0);
+		this.sphereGroup = new THREE.Group();
+		this.sphereGroup.add(sphere);
+		this.scene.add(this.sphereGroup);
+
+		// Create plane texture forllowing sphere
+		const spherePlaneGeometry = new THREE.PlaneGeometry(10, 10, 10, 10);
+		const spherePlaneMaterial = new THREE.MeshLambertMaterial({ map: this.textures[0] });
+		spherePlaneGeometry.dynamic = true;
+
+		this.gui.plane = this.gui.pane.addFolder({
+			title: 'Plane',
+			expanded: false,
+		});
+
+		spherePlaneGeometry.morphAttributes.position = [];
+
+		const positionAttribute = spherePlaneGeometry.attributes.position;
+		const spherePositions = [];
+
+		for (let i = 0; i < positionAttribute.count; i++) {
+			const x = positionAttribute.getX(i);
+			const y = positionAttribute.getY(i);
+			const z = positionAttribute.getZ(i);
+
+			spherePositions.push(x * Math.sqrt(1 - (y * y) / 2 - (z * z) / 2 + (y * y * z * z) / 3), y * Math.sqrt(1 - (z * z) / 2 - (x * x) / 2 + (z * z * x * x) / 3), z * Math.sqrt(1 - (x * x) / 2 - (y * y) / 2 + (x * x * y * y) / 3));
+		}
+
+		// add the spherical positions as the first morph target
+		spherePlaneGeometry.morphAttributes.position[0] = new THREE.Float32BufferAttribute(spherePositions, 3);
+
+		let spherePlaneMesh = new THREE.Mesh(spherePlaneGeometry, spherePlaneMaterial);
+		spherePlaneMesh.material.side = THREE.DoubleSide;
+		// spherePlaneMesh.position.z = 201;
+		spherePlaneMesh.position.y = 5;
+		spherePlaneMesh.position.z = -20;
+		this.gui.plane.addInput(spherePlaneMesh, 'rotation');
+		this.gui.plane.addInput(spherePlaneMesh, 'scale');
+		this.gui.plane.addInput(spherePlaneMesh, 'position');
+		const test = {
+			morph: 0,
+		};
+		this.gui.plane
+			.addInput(test, 'morph', {
+				step: 0.1,
+				min: 0,
+				max: 1,
+			})
+			.on('change', (ev) => {
+				spherePlaneMesh.morphTargetInfluences[0] = ev.value;
+			});
+		// spherePlaneMesh.morphTargetInfluences[0] = 0.1;
+		this.sphereGroup.add(spherePlaneMesh);
+
 		// Create plane from texture so the plane is adapted to texture ratio
 		this.textures.forEach((texture, index) => {
 			let offsetX = 0;
@@ -158,9 +243,16 @@ export default class ExampleScene extends Core {
 			this.groupExample.add(plane);
 		});
 
+		this.groupExample.visible = false;
 		this.gui.general.addInput(this.groupExample, 'visible', {
 			label: 'groupExample Visible',
 		});
+		this.gui.general.addInput(this.sphereGroup, 'visible', {
+			label: 'sphereGroup Visible',
+		});
+
+		// Lock control camera
+		this.controls.enabled = false;
 
 		this.scene.add(this.groupExample);
 		this.$emit('loaded');
