@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import PostProcessing from '~/gl/postprocessing';
 import GUI from './GUI';
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls.js';
+import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
 import SceneLights from './Lights';
 import vertexExample from '~/gl/shaders/vertexExample.glsl';
 import fragmentExample from '~/gl/shaders/fragmentExample.glsl';
@@ -16,6 +17,8 @@ export default class ExampleScene extends Core {
 		this.gui = new GUI(this);
 		this.isDestroyed = false;
 		this.time = 0;
+		this.mouseX = 0;
+		this.mouseY = 0;
 		this.groupExample = new THREE.Group();
 
 		this.post = new PostProcessing(this);
@@ -30,6 +33,8 @@ export default class ExampleScene extends Core {
 
 		// Events
 		this._onScroll = this.onScroll.bind(this);
+		this._onMouseMove = this.onMouseMove.bind(this);
+		this._onPointerdown = this.onPointerdown.bind(this);
 
 		this.post.$on(
 			'loaded',
@@ -43,13 +48,34 @@ export default class ExampleScene extends Core {
 	init(parent) {
 		super.init(parent);
 		window.addEventListener('wheel', this._onScroll);
+		this.pointer.$on('mousemove', this._onMouseMove);
+		this.pointer.$on('pointerdown', this._onPointerdown);
 		this.loadScene();
 	}
 
 	onScroll(event) {
-		console.log('scroll', event);
+		// console.log('scroll', event);
 		const lerpedValue = THREE.MathUtils.lerp(this.sphereGroup.rotation.x, this.sphereGroup.rotation.x + 0.0005 * event.deltaY, 0.3);
 		this.sphereGroup.rotation.x = lerpedValue;
+	}
+
+	onMouseMove(event) {
+		if (this.pointer.isDown) {
+			console.log(event);
+			var deltaX = this.pointer.raw.x - this.mouseX;
+			var deltaY = this.pointer.raw.y - this.mouseY;
+			this.mouseX = this.pointer.raw.x;
+			this.mouseY = this.pointer.raw.y;
+			const lerpedValueX = THREE.MathUtils.lerp(this.sphereGroup.rotation.x, this.sphereGroup.rotation.x + 0.008 * -deltaY, 0.1);
+			this.sphereGroup.rotation.x = lerpedValueX;
+			const lerpedValueY = THREE.MathUtils.lerp(this.sphereGroup.rotation.y, this.sphereGroup.rotation.y + 0.008 * -deltaX, 0.1);
+			this.sphereGroup.rotation.y = lerpedValueY;
+		}
+	}
+
+	onPointerdown() {
+		this.mouseX = this.pointer.raw.x;
+		this.mouseY = this.pointer.raw.y;
 	}
 
 	destroy() {
@@ -135,7 +161,7 @@ export default class ExampleScene extends Core {
 			u_time: { value: 1.0 },
 			u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
 		};
-		// const material = new THREE.MeshBasicMaterial( { color: 0x00ffff } );
+		// const material = new THREE.MeshBasicMaterial({ color: 0x00ffff });
 		const material = new THREE.ShaderMaterial({
 			uniforms,
 			vertexShader: vertexExample,
@@ -219,6 +245,17 @@ export default class ExampleScene extends Core {
 			});
 		// spherePlaneMesh.morphTargetInfluences[0] = 0.1;
 		this.sphereGroup.add(spherePlaneMesh);
+		// this.dragControls = new DragControls([this.sphereGroup], this.camera, this.renderer?.domElement);
+		// // this.dragControls.addEventListener('drag', this.update);
+		// this.dragControls.addEventListener('dragstart', function (event) {
+		// 	// event.object.material.emissive.set(0xaaaaaa);
+		// 	console.log('dragStart');
+		// });
+
+		// this.dragControls.addEventListener('dragend', function (event) {
+		// 	// event.object.material.emissive.set(0x000000);
+		// 	console.log('dragEnd');
+		// });
 
 		// Create plane from texture so the plane is adapted to texture ratio
 		this.textures.forEach((texture, index) => {
