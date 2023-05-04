@@ -14,6 +14,7 @@ export default class ExampleScene extends Core {
 	constructor(opt = {}) {
 		super();
 		if (!process.client) return;
+		this.images = opt.images;
 		this.gui = new GUI(this);
 		this.isDestroyed = false;
 		this.time = 0;
@@ -61,7 +62,7 @@ export default class ExampleScene extends Core {
 
 	onMouseMove(event) {
 		if (this.pointer.isDown) {
-			console.log(event);
+			// console.log(event);
 			var deltaX = this.pointer.raw.x - this.mouseX;
 			var deltaY = this.pointer.raw.y - this.mouseY;
 			this.mouseX = this.pointer.raw.x;
@@ -141,8 +142,10 @@ export default class ExampleScene extends Core {
 			{ url: '/textures/img_horiz.jpg', key: 'img-horiz' },
 			{ url: '/textures/img_paysage.jpg', key: 'img-paysage' },
 			{ url: '/textures/img2_paysage.jpg', key: 'img-paysage2' },
+			{ url: this.images[0], key: 'img-test' },
 			{ url: '/models/duck.gltf', key: 'duck' },
 		]);
+		const loader = new THREE.TextureLoader();
 
 		this.textures = [];
 		this.textures.push(new THREE.Texture(AssetManager.get('img-horiz').image));
@@ -196,66 +199,58 @@ export default class ExampleScene extends Core {
 		this.sphereGroup = new THREE.Group();
 		this.sphereGroup.add(sphere);
 		this.scene.add(this.sphereGroup);
+		this.gui.general.addInput(sphere, 'visible', {
+			label: 'sphere Visible',
+		});
 
 		// Create plane texture forllowing sphere
-		const spherePlaneGeometry = new THREE.PlaneGeometry(10, 10, 10, 10);
-		const spherePlaneMaterial = new THREE.MeshLambertMaterial({ map: this.textures[0] });
-		spherePlaneGeometry.dynamic = true;
-
-		this.gui.plane = this.gui.pane.addFolder({
-			title: 'Plane',
+		this.gui.planes = this.gui.pane.addFolder({
+			title: 'Planes',
 			expanded: false,
 		});
 
-		spherePlaneGeometry.morphAttributes.position = [];
+		this.images.forEach(async (image, index) => {
+			// console.log(image);
+			// await AssetManager.load([{ url: image, key: `image_${index + 1}` }]);
+			loader.load(image, (texture) => {
+				const imageW = texture.image.width / 40;
+				const imageH = texture.image.height / 40;
+				texture.generateMipmaps = false;
+				texture.minFilter = THREE.LinearFilter;
+				texture.wrapS = THREE.ClampToEdgeWrapping;
+				texture.wrapT = THREE.RepeatWrapping;
+				const spherePlaneGeometry = new THREE.PlaneGeometry(imageW, imageH, 16, 16);
+				const spherePlaneMaterial = new THREE.MeshLambertMaterial({ map: texture });
+				spherePlaneGeometry.dynamic = true;
 
-		const positionAttribute = spherePlaneGeometry.attributes.position;
-		const spherePositions = [];
+				let spherePlaneMesh = new THREE.Mesh(spherePlaneGeometry, spherePlaneMaterial);
+				spherePlaneMesh.material.side = THREE.DoubleSide;
 
-		for (let i = 0; i < positionAttribute.count; i++) {
-			const x = positionAttribute.getX(i);
-			const y = positionAttribute.getY(i);
-			const z = positionAttribute.getZ(i);
+				// Position
+				const vector = new THREE.Vector3();
+				const l = this.images.length;
 
-			spherePositions.push(x * Math.sqrt(1 - (y * y) / 2 - (z * z) / 2 + (y * y * z * z) / 3), y * Math.sqrt(1 - (z * z) / 2 - (x * x) / 2 + (z * z * x * x) / 3), z * Math.sqrt(1 - (x * x) / 2 - (y * y) / 2 + (x * x * y * y) / 3));
-		}
+				const phi = Math.acos(-1 + (2 * index) / l);
+				const theta = Math.sqrt(l * Math.PI) * phi;
 
-		// add the spherical positions as the first morph target
-		spherePlaneGeometry.morphAttributes.position[0] = new THREE.Float32BufferAttribute(spherePositions, 3);
+				spherePlaneMesh.position.setFromSphericalCoords(25, phi, theta);
 
-		let spherePlaneMesh = new THREE.Mesh(spherePlaneGeometry, spherePlaneMaterial);
-		spherePlaneMesh.material.side = THREE.DoubleSide;
-		// spherePlaneMesh.position.z = 201;
-		spherePlaneMesh.position.y = 5;
-		spherePlaneMesh.position.z = -20;
-		this.gui.plane.addInput(spherePlaneMesh, 'rotation');
-		this.gui.plane.addInput(spherePlaneMesh, 'scale');
-		this.gui.plane.addInput(spherePlaneMesh, 'position');
-		const test = {
-			morph: 0,
-		};
-		this.gui.plane
-			.addInput(test, 'morph', {
-				step: 0.1,
-				min: 0,
-				max: 1,
-			})
-			.on('change', (ev) => {
-				spherePlaneMesh.morphTargetInfluences[0] = ev.value;
+				vector.copy(spherePlaneMesh.position).multiplyScalar(2);
+
+				spherePlaneMesh.lookAt(vector);
+
+				// targets.sphere.push( object );
+				// spherePlaneMesh.position.x = index * 10;
+				// spherePlaneMesh.position.y = 5;
+				// spherePlaneMesh.position.z = -20;
+
+				// GUI
+				this.gui.planes.addInput(spherePlaneMesh, 'rotation', { title: `plane_${index}` });
+				this.gui.planes.addInput(spherePlaneMesh, 'scale', { title: `plane_${index}` });
+				this.gui.planes.addInput(spherePlaneMesh, 'position', { title: `plane_${index}` });
+				this.sphereGroup.add(spherePlaneMesh);
 			});
-		// spherePlaneMesh.morphTargetInfluences[0] = 0.1;
-		this.sphereGroup.add(spherePlaneMesh);
-		// this.dragControls = new DragControls([this.sphereGroup], this.camera, this.renderer?.domElement);
-		// // this.dragControls.addEventListener('drag', this.update);
-		// this.dragControls.addEventListener('dragstart', function (event) {
-		// 	// event.object.material.emissive.set(0xaaaaaa);
-		// 	console.log('dragStart');
-		// });
-
-		// this.dragControls.addEventListener('dragend', function (event) {
-		// 	// event.object.material.emissive.set(0x000000);
-		// 	console.log('dragEnd');
-		// });
+		});
 
 		// Create plane from texture so the plane is adapted to texture ratio
 		this.textures.forEach((texture, index) => {
